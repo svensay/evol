@@ -250,7 +250,8 @@ MonoBehaviour:
   _lateUpdateSystemDescriptions: []
   _forceUpdateInspector: 0
   _loadingState: 0
-  _specialGameObjects: []
+  _specialGameObjects:
+  - {fileID: 0}
   showSystemProfiler: 1
   showFamilyInspector: 0
   showFamilyInspectorFixedUpdate: 0
