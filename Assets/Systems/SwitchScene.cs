@@ -2,16 +2,18 @@
 using UnityEngine;
 using FYFY;
 
-public class SwitchScene : FSystem {
-
-    private Family _SwitchScene = FamilyManager.getFamily(new AllOfComponents(typeof(right_button), typeof(left_button)));
+public class SwitchScene : FSystem
+{ 
     public static SwitchScene instance;
     public static int ind = 0;
+
 
 
     public SwitchScene()
     {
         instance = this;
+        GameObject canvas = GameObject.Find("Canvas");
+        GameObjectManager.dontDestroyOnLoadAndRebind(canvas);
     }
 
     public void onClick_left()
