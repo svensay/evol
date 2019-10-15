@@ -11,6 +11,6 @@ public class Load_scene : FSystem {
     }
 	// Use to process your families.
 	protected override void onProcess(int familiesUpdateCount) {
-        SceneManager.LoadScene(0, LoadSceneMode.Single);
+        SceneManager.LoadScene(1, LoadSceneMode.Single);
     }
 }

@@ -34,7 +34,7 @@ public class RandomMovingSystem : FSystem
             RandomTarget rt = go.GetComponent<RandomTarget>();
 
             if (rt.target.Equals(tr.position))
-                rt.target = new Vector3((Random.value - 0.5f) * 7, (Random.value - 0.5f) * 5.2f);
+                rt.target = new Vector3(Random.Range(rt.down.position.x,rt.up.position.x), Random.Range(rt.down.position.y, rt.up.position.y));
             else
                 tr.position = Vector3.MoveTowards(tr.position, rt.target, mv.speed * Time.deltaTime);
         }
