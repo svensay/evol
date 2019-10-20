@@ -26,7 +26,7 @@ public class StatSystem : FSystem
                     click = true;
                 }
             }
-            if (click == false)
+            if (click == false && p != null)
                 p.SetActive(false);
         }
     }

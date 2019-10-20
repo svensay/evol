@@ -489,6 +489,10 @@ MonoBehaviour:
       PublicKeyToken=null
     _typeFullName: BirdFactory
     _pause: 0
+  - _typeAssemblyQualifiedName: ChangeTimeSystem, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    _typeFullName: ChangeTimeSystem
+    _pause: 0
   _lateUpdateSystemDescriptions: []
   _forceUpdateInspector: 0
   _loadingState: 0

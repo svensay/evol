@@ -7,8 +7,6 @@ public class SwitchScene : FSystem
     public static SwitchScene instance;
     public static int ind = 0;
 
-
-
     public SwitchScene()
     {
         instance = this;
