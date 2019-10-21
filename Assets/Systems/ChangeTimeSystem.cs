@@ -3,11 +3,12 @@ using FYFY;
 
 public class ChangeTimeSystem : FSystem {
 
-    public static ChangeTimeSystem instance;
+    public static ChangeTimeSystem instanceChTime;
 
     public ChangeTimeSystem()
     {
-        instance = this;
+
+        instanceChTime = this;
     }
 
     public void onClick_accelerate()

@@ -98,6 +98,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {x: 0, y: 0, z: 0}
+  up: {fileID: 0}
+  down: {fileID: 0}
 --- !u!114 &4579526141395786545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,8 +113,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2.5
-  up: {fileID: 0}
-  down: {fileID: 0}
 --- !u!114 &4579526141395786550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,7 +127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stat:
   - Faucon
-  nom: {fileID: 0}
+  - 10
   panel: {fileID: 0}
 --- !u!114 &4579526141395786551
 MonoBehaviour:

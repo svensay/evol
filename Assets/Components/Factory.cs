@@ -11,6 +11,5 @@ public class Factory : MonoBehaviour {
 
     public GameObject prefab;
 
-    public Text nom;
     public GameObject panel;
 }

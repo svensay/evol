@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using FYFY;
 
 public class BirdFactory : FSystem {
@@ -18,7 +19,6 @@ public class BirdFactory : FSystem {
         {
             GameObject go = Object.Instantiate<GameObject>(fact.prefab);
             Attribut a = go.GetComponent<Attribut>();
-            a.nom = fact.nom;
             a.panel = fact.panel;
 
             RandomTarget r = go.GetComponent<RandomTarget>();

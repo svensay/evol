@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 
-public class Accelerate : MonoBehaviour {
+public class Active_Inventory : MonoBehaviour {
     // Advice: FYFY component aims to contain only public members (according to Entity-Component-System paradigm).
+    public GameObject scroll_view;
     public void onCLick()
     {
-        ChangeTimeSystem.instanceChTime.onClick_accelerate();
+        InventorySystem.instanceInv.onClick_appears();
     }
 }
