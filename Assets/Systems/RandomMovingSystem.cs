@@ -39,4 +39,5 @@ public class RandomMovingSystem : FSystem
                 tr.position = Vector3.MoveTowards(tr.position, rt.target, mv.speed * Time.deltaTime);
         }
     }
+
 }

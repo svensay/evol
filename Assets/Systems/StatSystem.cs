@@ -47,6 +47,7 @@ public class StatSystem : FSystem
                 a_all.stat[1] = life_point.ToString();
                 if (life_point <= 0)
                 {
+                    GameObjectManager.unbind(go.gameObject);
                     Object.Destroy(go.gameObject);
                 }
             }
