@@ -127,7 +127,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stat:
   - Faucon
-  - 10
+  - 50
+  - Petit Bec
+  - Grosse corpulence
+  - Lent
   panel: {fileID: 0}
 --- !u!114 &4579526141395786551
 MonoBehaviour:

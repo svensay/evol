@@ -36,6 +36,7 @@ public class StatSystem : FSystem
                 
         }
 
+        // Diminution des points vie de l'oiseaux
         time += Time.deltaTime;
         if (time >= 1.0f)
         {
@@ -52,9 +53,11 @@ public class StatSystem : FSystem
                 }
             }
         }
+
+        // Mise a jour de l'affichage des point de vie
         if( a != null && p != null)
         {
-            p.GetComponentInChildren<Text>().text = a.stat[0];
+            p.GetComponentInChildren<Text>().text = a.stat[0] + "\n" + a.stat[2] + "\n" + a.stat[3] + "\n" + a.stat[4];
             p.GetComponentInChildren<Slider>().value = int.Parse(a.stat[1]);
         }
     }
