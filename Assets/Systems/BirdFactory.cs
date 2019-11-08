@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using FYFY;
 
 public class BirdFactory : FSystem {
@@ -17,6 +16,7 @@ public class BirdFactory : FSystem {
         fact.reloadProgress += Time.deltaTime;
         if(fact.reloadProgress >= fact.reloadTime)
         {
+            Canvas c = fact.canvas;
             GameObject go = Object.Instantiate<GameObject>(fact.prefab);
             Attribut a = go.GetComponent<Attribut>();
             a.panel = fact.panel;
@@ -27,6 +27,8 @@ public class BirdFactory : FSystem {
 
             GameObjectManager.bind(go);
             go.transform.position = new Vector3(Random.Range(fact.down.position.x, fact.up.position.x), Random.Range(fact.down.position.y, fact.up.position.y));
+
+            go.transform.SetParent(c.transform,false);
 
             fact.reloadProgress = 0;
         }

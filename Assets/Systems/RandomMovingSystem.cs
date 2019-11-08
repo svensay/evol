@@ -18,10 +18,7 @@ public class RandomMovingSystem : FSystem
 
     private void onGOEnter(GameObject go)
     {
-        Transform tr = go.GetComponent<Transform>();
-        RandomTarget rt = go.GetComponent<RandomTarget>();
-
-        rt.target = tr.position;
+        go.GetComponent<RandomTarget>().target = go.transform.position;
     }
 
     // Use to process your families.
@@ -29,14 +26,12 @@ public class RandomMovingSystem : FSystem
     {
         foreach (GameObject go in _randomMovingGO)
         {
-            Transform tr = go.GetComponent<Transform>();
-            Move mv = go.GetComponent<Move>();
             RandomTarget rt = go.GetComponent<RandomTarget>();
 
-            if (rt.target.Equals(tr.position))
-                rt.target = new Vector3(Random.Range(rt.down.position.x,rt.up.position.x), Random.Range(rt.down.position.y, rt.up.position.y));
+            if (rt.target.Equals(go.transform.position))
+                rt.target = new Vector3(Random.Range(rt.down.position.x,rt.up.position.x),Random.Range(rt.down.position.y, rt.up.position.y));
             else
-                tr.position = Vector3.MoveTowards(tr.position, rt.target, mv.speed * Time.deltaTime);
+                go.transform.position = Vector3.MoveTowards(go.transform.position, rt.target, go.GetComponent<Move>().speed * Time.deltaTime);
         }
     }
 

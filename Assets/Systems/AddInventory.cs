@@ -3,7 +3,9 @@ using UnityEngine.UI;
 using FYFY;
 
 public class AddInventory : FSystem {
+    
     public static AddInventory instanceAddInv;
+
     private Family _CoinFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Coin)));
 
     public AddInventory()

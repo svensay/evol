@@ -7,6 +7,7 @@ public class StatSystem : FSystem
 {
     private Family _StatSystem = FamilyManager.getFamily(new AllOfComponents(typeof(Attribut)));
     private GameObject p;
+    private GameObject clickBird;
     private Attribut a;
     private float time = 0.0f;
 
@@ -20,6 +21,8 @@ public class StatSystem : FSystem
             {  
                 if (go.gameObject.GetComponent<PointerOver>() != null)
                 {
+                    clickBird = go.transform.GetChild(0).gameObject;
+                    clickBird.SetActive(true);
                     a = go.GetComponent<Attribut>();
                     p = a.panel;
                     if (!p.activeSelf)
@@ -27,11 +30,13 @@ public class StatSystem : FSystem
                     click = true;
                 }
             }
-            if (click == false && p != null)
+            if (click == false && p != null && clickBird != null)
             {
+                clickBird.SetActive(false);
                 p.SetActive(false);
                 p = null;
                 a = null;
+                clickBird = null;
             }
                 
         }
@@ -45,7 +50,7 @@ public class StatSystem : FSystem
             {
                 Attribut a_all = go.GetComponent<Attribut>();
                 int life_point = int.Parse(a_all.stat[1]) - 1;
-                a_all.stat[1] = life_point.ToString();
+                a_all.stat[0] = life_point.ToString();
                 if (life_point <= 0)
                 {
                     GameObjectManager.unbind(go.gameObject);
@@ -57,8 +62,8 @@ public class StatSystem : FSystem
         // Mise a jour de l'affichage des point de vie
         if( a != null && p != null)
         {
-            p.GetComponentInChildren<Text>().text = a.stat[0] + "\n" + a.stat[2] + "\n" + a.stat[3] + "\n" + a.stat[4];
-            p.GetComponentInChildren<Slider>().value = int.Parse(a.stat[1]);
+            p.GetComponentInChildren<Text>().text = a.stat[1] + "\n" + a.stat[2] + "\n" + a.stat[3] + "\n" + a.stat[4];
+            p.GetComponentInChildren<Slider>().value = int.Parse(a.stat[0]);
         }
     }
 }

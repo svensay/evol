@@ -12,4 +12,6 @@ public class Factory : MonoBehaviour {
     public GameObject prefab;
 
     public GameObject panel;
+
+    public Canvas canvas;
 }
