@@ -4,7 +4,7 @@ using FYFY;
 
 public class GoalSystem : FSystem {
 
-    private Family _GoalSystem = FamilyManager.getFamily(new AllOfComponents(typeof(FeedBack)));
+    private Family _GoalSystem = FamilyManager.getFamily(new AllOfComponents(typeof(Goal)));
     private Family _StatSystem = FamilyManager.getFamily(new AllOfComponents(typeof(Attribut)));
     private Family _MessageFamily = FamilyManager.getFamily(new AllOfComponents(typeof(LevelClearMessage)));
     private int goal = 10;
@@ -20,7 +20,7 @@ public class GoalSystem : FSystem {
                 i += 1;
             }
             
-            Text display = go_goal.GetComponent<FeedBack>().display;
+            Text display = go_goal.GetComponent<Goal>().display;
             display.text = "Pigeon : " + i + " / " + goal;
             if (i >= goal)
             {

@@ -1,36 +1,36 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using FYFY;
 
 public class BirdFactory : FSystem {
 
     private Family factory_F = FamilyManager.getFamily(new AllOfComponents(typeof(Factory)));
-
-    private Factory fact;
-
-    public BirdFactory()
-    {
-        fact = factory_F.First().GetComponent<Factory>();
-    }
 	// Use to process your families.
 	protected override void onProcess(int familiesUpdateCount) {
-        fact.reloadProgress += Time.deltaTime;
-        if(fact.reloadProgress >= fact.reloadTime)
+        foreach (GameObject go in factory_F)
         {
-            Canvas c = fact.canvas;
-            GameObject go = Object.Instantiate<GameObject>(fact.prefab);
-            Attribut a = go.GetComponent<Attribut>();
-            a.panel = fact.panel;
+            Factory fact = go.GetComponent<Factory>();
+            fact.reloadProgress += Time.deltaTime;
+            if (fact.reloadProgress >= fact.reloadTime)
+            {
+                Canvas c = fact.canvas;
+                GameObject g = Object.Instantiate<GameObject>(fact.prefab);
+                Attribut a = g.GetComponent<Attribut>();
+                a.panel = fact.panel;
+                a.panel.GetComponentInChildren<Slider>().maxValue = int.Parse(a.stat[0]);
 
-            RandomTarget r = go.GetComponent<RandomTarget>();
-            r.down = fact.down;
-            r.up = fact.up;
+                a.stat[4] = fact.generation.ToString();
 
-            GameObjectManager.bind(go);
-            go.transform.position = new Vector3(Random.Range(fact.down.position.x, fact.up.position.x), Random.Range(fact.down.position.y, fact.up.position.y));
+                RandomTarget r = g.GetComponent<RandomTarget>();
+                r.down = fact.down;
+                r.up = fact.up;
 
-            go.transform.SetParent(c.transform,false);
+                GameObjectManager.bind(g);
 
-            fact.reloadProgress = 0;
+                g.transform.SetParent(c.transform, false);
+
+                fact.reloadProgress = 0;
+            }
         }
 	}
 }

@@ -16,6 +16,10 @@ public class StatSystem : FSystem
     {
         if (Input.GetMouseButton(0))
         {
+            foreach (GameObject go in _StatSystem)
+            {
+                go.transform.GetChild(0).gameObject.SetActive(false);
+            }
             bool click = false;
             foreach (GameObject go in _StatSystem)
             {  
@@ -49,7 +53,9 @@ public class StatSystem : FSystem
             foreach (GameObject go in _StatSystem)
             {
                 Attribut a_all = go.GetComponent<Attribut>();
-                int life_point = int.Parse(a_all.stat[1]) - 1;
+                int life_point;
+                int.TryParse(a_all.stat[0], out life_point);
+                life_point = life_point - 1;
                 a_all.stat[0] = life_point.ToString();
                 if (life_point <= 0)
                 {
@@ -62,7 +68,7 @@ public class StatSystem : FSystem
         // Mise a jour de l'affichage des point de vie
         if( a != null && p != null)
         {
-            p.GetComponentInChildren<Text>().text = a.stat[1] + "\n" + a.stat[2] + "\n" + a.stat[3] + "\n" + a.stat[4];
+            p.GetComponentInChildren<Text>().text = a.stat[1] + "\n" + a.stat[2] + "\n" + a.stat[3] + "\n generation : " + a.stat[4];
             p.GetComponentInChildren<Slider>().value = int.Parse(a.stat[0]);
         }
     }

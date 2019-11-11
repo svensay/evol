@@ -3,4 +3,5 @@
 public class Move : MonoBehaviour {
     // Advice: FYFY component aims to contain only public members (according to Entity-Component-System paradigm).
     public float speed = 5.0f;
+    public Vector3 lastpos;
 }

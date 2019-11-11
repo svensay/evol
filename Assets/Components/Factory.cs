@@ -6,6 +6,8 @@ public class Factory : MonoBehaviour {
     public float reloadTime = 5f;
     public float reloadProgress = 0f;
 
+    public int generation = 1;
+
     public Transform up;
     public Transform down;
 
