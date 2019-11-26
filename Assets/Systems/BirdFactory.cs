@@ -5,7 +5,8 @@ using FYFY;
 public class BirdFactory : FSystem {
 
     private Family factory_F = FamilyManager.getFamily(new AllOfComponents(typeof(Factory)));
-	// Use to process your families.
+	
+    // Use to process your families.
 	protected override void onProcess(int familiesUpdateCount) {
         foreach (GameObject go in factory_F)
         {
@@ -16,10 +17,8 @@ public class BirdFactory : FSystem {
                 Canvas c = fact.canvas;
                 GameObject g = Object.Instantiate<GameObject>(fact.prefab);
                 Attribut a = g.GetComponent<Attribut>();
-                a.panel = fact.panel;
-                a.panel.GetComponentInChildren<Slider>().maxValue = int.Parse(a.stat[0]);
 
-                a.stat[4] = fact.generation.ToString();
+                a.stat[6] = fact.generation.ToString();
 
                 RandomTarget r = g.GetComponent<RandomTarget>();
                 r.down = fact.down;

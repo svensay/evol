@@ -16,7 +16,7 @@ public class BackGameSystem : FSystem {
         {
             BackGame bg = go.GetComponent<BackGame>();
             GameObject panel = bg.boutique;
-            panel.SetActive(false);
+            GameObjectManager.setGameObjectState(panel,false);
             Time.timeScale = 1.0f;
         }
     }

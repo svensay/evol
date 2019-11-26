@@ -1,75 +1,46 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-using FYFY;
+﻿using FYFY;
 using FYFY_plugins.PointerManager;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class StatSystem : FSystem
 {
-    private Family _StatSystem = FamilyManager.getFamily(new AllOfComponents(typeof(Attribut)));
+    private Family _StatFeedFamily = FamilyManager.getFamily(new AllOfComponents(typeof(StatFeed)));
+    
+    private Family _SelectFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Attribut), typeof(PointerOver)), new NoneOfComponents(typeof(Select)));
+    
+    private Family _UnselectFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Attribut), typeof(Select)), new NoneOfComponents(typeof(PointerOver)));
     private GameObject p;
-    private GameObject clickBird;
     private Attribut a;
-    private float time = 0.0f;
+
+    public StatSystem()
+    {
+        this.p = _StatFeedFamily.First();
+    }
 
     // Use to process your families.
     protected override void onProcess(int familiesUpdateCount)
     {
         if (Input.GetMouseButton(0))
         {
-            foreach (GameObject go in _StatSystem)
+            if (_UnselectFamily.Count > 0)
             {
-                go.transform.GetChild(0).gameObject.SetActive(false);
+                GameObjectManager.removeComponent<Select>(_UnselectFamily.First());
+                GameObjectManager.setGameObjectState(_UnselectFamily.First().transform.GetChild(0).gameObject, false);
+                GameObjectManager.setGameObjectState(p, false);
             }
-            bool click = false;
-            foreach (GameObject go in _StatSystem)
-            {  
-                if (go.gameObject.GetComponent<PointerOver>() != null)
-                {
-                    clickBird = go.transform.GetChild(0).gameObject;
-                    clickBird.SetActive(true);
-                    a = go.GetComponent<Attribut>();
-                    p = a.panel;
-                    if (!p.activeSelf)
-                        p.SetActive(true);
-                    click = true;
-                }
-            }
-            if (click == false && p != null && clickBird != null)
+            if (_SelectFamily.First() != null)
             {
-                clickBird.SetActive(false);
-                p.SetActive(false);
-                p = null;
-                a = null;
-                clickBird = null;
-            }
-                
-        }
-
-        // Diminution des points vie de l'oiseaux
-        time += Time.deltaTime;
-        if (time >= 1.0f)
-        {
-            time = 0.0f;
-            foreach (GameObject go in _StatSystem)
-            {
-                Attribut a_all = go.GetComponent<Attribut>();
-                int life_point;
-                int.TryParse(a_all.stat[0], out life_point);
-                life_point = life_point - 1;
-                a_all.stat[0] = life_point.ToString();
-                if (life_point <= 0)
-                {
-                    GameObjectManager.unbind(go.gameObject);
-                    Object.Destroy(go.gameObject);
-                }
+                GameObjectManager.addComponent<Select>(_SelectFamily.First());
+                GameObjectManager.setGameObjectState(p, true);
+                GameObjectManager.setGameObjectState(_SelectFamily.First().transform.GetChild(0).gameObject, true);
+                a = _SelectFamily.First().GetComponent<Attribut>();
+                p.GetComponentInChildren<Text>().text = a.stat[2] + "\n" + a.stat[3] + "\n" + a.stat[4] + "\n" + a.stat[5] + "\n generation : " + a.stat[6];
+                p.GetComponentInChildren<Slider>().maxValue = int.Parse(a.stat[0]);
             }
         }
 
-        // Mise a jour de l'affichage des point de vie
-        if( a != null && p != null)
-        {
-            p.GetComponentInChildren<Text>().text = a.stat[1] + "\n" + a.stat[2] + "\n" + a.stat[3] + "\n generation : " + a.stat[4];
-            p.GetComponentInChildren<Slider>().value = int.Parse(a.stat[0]);
-        }
+        if (p.activeSelf)
+            p.GetComponentInChildren<Slider>().value = int.Parse(a.stat[1]);
     }
 }

@@ -1,7 +1,8 @@
-﻿using UnityEngine;
-using FYFY;
+﻿using FYFY;
+using UnityEngine;
 
-public class OpenShopSystem : FSystem {
+public class OpenShopSystem : FSystem
+{
     public static OpenShopSystem instanceOS;
     private Family _ShopFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Shop)));
     public OpenShopSystem()
@@ -11,12 +12,10 @@ public class OpenShopSystem : FSystem {
 
     public void onClick_shop()
     {
-        foreach (GameObject go in _ShopFamily)
-        {
-            Shop s = go.GetComponent<Shop>();
-            GameObject panel = s.boutique;
-            panel.SetActive(true);
-            Time.timeScale = 0.0f;
-        }
+        GameObject go = _ShopFamily.First();
+        Shop s = go.GetComponent<Shop>();
+        GameObject panel = s.boutique;
+        GameObjectManager.setGameObjectState(panel, true);
+        Time.timeScale = 0.0f;
     }
 }

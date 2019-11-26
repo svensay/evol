@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using FYFY;
+using UnityEngine;
 using UnityEngine.UI;
-using FYFY;
 
-public class GoalSystem : FSystem {
+public class GoalSystem : FSystem
+{
 
-    private Family _GoalSystem = FamilyManager.getFamily(new AllOfComponents(typeof(Goal)));
-    private Family _StatSystem = FamilyManager.getFamily(new AllOfComponents(typeof(Attribut)));
+    private Family _GoalFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Goal)));
+    private Family _StatFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Attribut)));
     private Family _MessageFamily = FamilyManager.getFamily(new AllOfComponents(typeof(LevelClearMessage)));
     private int goal = 10;
 
@@ -13,25 +14,22 @@ public class GoalSystem : FSystem {
     protected override void onProcess(int familiesUpdateCount)
     {
         int i = 0;
-        foreach (GameObject go_goal in _GoalSystem)
+        GameObject go_goal = _GoalFamily.First();
+
+        foreach (GameObject go_att in _StatFamily)
         {
-            foreach (GameObject go_att in _StatSystem)
-            {
-                i += 1;
-            }
-            
-            Text display = go_goal.GetComponent<Goal>().display;
-            display.text = "Pigeon : " + i + " / " + goal;
-            if (i >= goal)
-            {
-                Time.timeScale = 0.0f;
-                foreach (GameObject go_msg in _MessageFamily)
-                {
-                    LevelClearMessage lcm = go_msg.GetComponent<LevelClearMessage>();
-                    GameObject msg = lcm.msg;
-                    msg.SetActive(true);
-                }
-            }
+            i += 1;
+        }
+
+        Text display = go_goal.GetComponent<Goal>().display;
+        display.text = "Pigeon : " + i + " / " + goal;
+        if (i >= goal)
+        {
+            Time.timeScale = 0.0f;
+            GameObject go_msg = _MessageFamily.First();
+            LevelClearMessage lcm = go_msg.GetComponent<LevelClearMessage>();
+            GameObject msg = lcm.msg;
+            GameObjectManager.setGameObjectState(msg, true);
         }
     }
 }

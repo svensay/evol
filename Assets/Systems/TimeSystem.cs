@@ -1,7 +1,8 @@
-﻿using UnityEngine;
-using FYFY;
+﻿using FYFY;
+using UnityEngine;
 
-public class TimeSystem : FSystem {
+public class TimeSystem : FSystem
+{
 
     private Family _TimeFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Time_Chrono)));
     private float chronoTime = 1.0f;
@@ -10,28 +11,20 @@ public class TimeSystem : FSystem {
     // Use to process your families.
     protected override void onProcess(int familiesUpdateCount)
     {
-        foreach (GameObject go in _TimeFamily)
+        GameObject go = _TimeFamily.First();
+        Time_Chrono c = go.GetComponent<Time_Chrono>();
+        chronoTime += Time.deltaTime;
+        int temp = (int)chronoTime;
+        if (temp % 30 == 0)
         {
-            Time_Chrono c = go.GetComponent<Time_Chrono>();
-            
-            chronoTime += Time.deltaTime;
-            int temp = (int)chronoTime;
-            if(temp % 30 == 0)
+            chronoTime = 1.0f;
+            generation++;
+            Family FactFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Factory)));
+            foreach (GameObject go_fact in FactFamily)
             {
-                chronoTime = 1.0f;
-                generation++;
-                Family FactFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Factory)));
-                foreach (GameObject go_fact in FactFamily)
-                {
-                    go_fact.GetComponent<Factory>().generation = generation;
-                }
-                c.affichage.text = "generation : "+generation.ToString();
+                go_fact.GetComponent<Factory>().generation = generation;
             }
-            /**
-            int min = temp / 60;
-            int sec = temp % 60;
-            c.affichage.text = min.ToString() + ":" + sec.ToString();
-            */
+            c.affichage.text = "generation : " + generation.ToString();
         }
     }
 }
