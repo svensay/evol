@@ -25,7 +25,8 @@ public class NestSystem : FSystem {
             if (_NestNoBirdFamily.Count > 0 && _SelectFamily.Count > 0)
             {
                 GameObjectManager.removeComponent<Move>(_SelectFamily.First());
-                GameObjectManager.addComponent<InNest>(_SelectFamily.First());
+
+                GameObjectManager.addComponent<InNest>(_SelectFamily.First(), new { place = _NestNoBirdFamily.First(), myNest = _NestNoBirdFamily.First().GetComponent<Nest>().id });
 
                 GameObjectManager.addComponent<HaveBird>(_NestNoBirdFamily.First());
 
@@ -38,13 +39,8 @@ public class NestSystem : FSystem {
         {
             if (_SelectNestFamily.Count > 0)
             {
-                foreach (GameObject go in _NestBirdFamily)
-                {
-                    if (_SelectNestFamily.First().transform.position.Equals(go.transform.position))
-                    {
-                        GameObjectManager.removeComponent<HaveBird>(go);
-                    }
-                }
+                GameObjectManager.removeComponent<HaveBird>(_SelectNestFamily.First().GetComponent<InNest>().place);
+
                 GameObjectManager.addComponent<Move>(_SelectNestFamily.First());
                 GameObjectManager.removeComponent<InNest>(_SelectNestFamily.First());
             }

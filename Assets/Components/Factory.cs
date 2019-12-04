@@ -15,5 +15,5 @@ public class Factory : MonoBehaviour {
 
     public GameObject panel;
 
-    public Canvas canvas;
+    public GameObject fam;
 }

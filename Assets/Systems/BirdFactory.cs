@@ -14,7 +14,7 @@ public class BirdFactory : FSystem {
             fact.reloadProgress += Time.deltaTime;
             if (fact.reloadProgress >= fact.reloadTime)
             {
-                Canvas c = fact.canvas;
+                GameObject fam = fact.fam;
                 GameObject g = Object.Instantiate<GameObject>(fact.prefab);
                 Attribut a = g.GetComponent<Attribut>();
 
@@ -26,7 +26,8 @@ public class BirdFactory : FSystem {
 
                 GameObjectManager.bind(g);
 
-                g.transform.SetParent(c.transform, false);
+                GameObjectManager.setGameObjectParent(g,fam,false);
+
 
                 fact.reloadProgress = 0;
             }

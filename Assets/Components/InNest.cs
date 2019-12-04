@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 
 public class InNest : MonoBehaviour {
-	// Advice: FYFY component aims to contain only public members (according to Entity-Component-System paradigm).
+    // Advice: FYFY component aims to contain only public members (according to Entity-Component-System paradigm).
+    public GameObject place;
+    public int myNest;
 }

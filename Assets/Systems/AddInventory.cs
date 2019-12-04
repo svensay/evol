@@ -38,7 +38,7 @@ public class AddInventory : FSystem {
                     c.value.text = get_value.ToString();
                     RectTransform scroll_view = h.scroll_view;
                     GameObject item = Object.Instantiate<GameObject>(h.prefab_haricot);
-                    item.transform.SetParent(scroll_view, false);
+                    GameObjectManager.setGameObjectParent(item, scroll_view.gameObject, true);
                 }
             }
         }
@@ -70,7 +70,7 @@ public class AddInventory : FSystem {
                     c.value.text = get_value.ToString();
                     RectTransform scroll_view = s.scroll_view;
                     GameObject item = Object.Instantiate<GameObject>(s.prefab_sesame);
-                    item.transform.SetParent(scroll_view, false);
+                    GameObjectManager.setGameObjectParent(item, scroll_view.gameObject, true);
                 }
             }
         }
