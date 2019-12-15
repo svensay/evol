@@ -13,7 +13,5 @@ public class Factory : MonoBehaviour {
 
     public GameObject prefab;
 
-    public GameObject panel;
-
     public GameObject fam;
 }

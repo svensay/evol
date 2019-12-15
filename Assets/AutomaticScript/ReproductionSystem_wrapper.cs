@@ -9,9 +9,9 @@ public class ReproductionSystem_wrapper : MonoBehaviour
 		this.hideFlags = HideFlags.HideInInspector; // Hide this component in Inspector
 	}
 
-	public void onClick(System.Int32 id)
+	public void onClickRepro(System.Int32 id)
 	{
-		MainLoop.callAppropriateSystemMethod ("ReproductionSystem", "onClick", id);
+		MainLoop.callAppropriateSystemMethod ("ReproductionSystem", "onClickRepro", id);
 	}
 
 }

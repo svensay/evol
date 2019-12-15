@@ -133,8 +133,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stat:
-  - 10
-  - 10
+  - 100
+  - 100
   - Pigeon
   - Petit Bec
   - Grosse corpulence

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using FYFY;
 
 public class ActivateReproductionSystem : FSystem {
@@ -20,7 +21,10 @@ public class ActivateReproductionSystem : FSystem {
                     foreach (GameObject go3 in _NestFamily)
                     {
                         if (go1.GetComponent<InNest>().myNest == go3.GetComponent<ActivateReproduction>().id)
-                            GameObjectManager.setGameObjectState(go3.GetComponent<ActivateReproduction>().reproduction,true);
+                        {
+                            GameObjectManager.setGameObjectState(go3.GetComponent<ActivateReproduction>().reproduction, true);
+                        }
+                            
                     }
                 }
 
