@@ -6,9 +6,11 @@ public class Production : MonoBehaviour {
 
 	public GameObject pos;
 
-	public GameObject prefab;
+	public GameObject prefab_rouge;
+	public GameObject prefab_vert;
 
-	public GameObject fam;
+	public GameObject fam_rouge;
+	public GameObject fam_vert;
 
 	public int generation = 1;
 

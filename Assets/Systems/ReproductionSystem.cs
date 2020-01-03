@@ -52,13 +52,40 @@ public class ReproductionSystem : FSystem
                 Production prod = go.GetComponent<Production>();
                 if (sl.value >= sl.maxValue)
                 {
-                    Debug.Log(Parent.Count);
-                    GameObject fam = prod.fam;
-                    GameObject g = GameObject.Instantiate<GameObject>(prod.prefab);
+                    GameObject p1 = Parent[0];
+                    GameObject p2 = Parent[1];
+                    GameObject fam = null;
+                    GameObject g = null;
+
+                    if (p1.GetComponent<Attribut>().stat[6].Equals(p2.GetComponent<Attribut>().stat[6]))
+                    {
+                        if (p1.GetComponent<Attribut>().stat[6].Equals("Rouge"))
+                        {
+                            fam = prod.fam_rouge;
+                            g = GameObject.Instantiate<GameObject>(prod.prefab_rouge);
+                        }
+                        else
+                        {
+                            fam = prod.fam_vert;
+                            g = GameObject.Instantiate<GameObject>(prod.prefab_vert);
+                        }
+                    }
+                    else
+                    {
+                        int rand = Random.Range(1, 101);
+                        if (rand < 50)
+                        {
+                            fam = prod.fam_rouge;
+                            g = GameObject.Instantiate<GameObject>(prod.prefab_rouge);
+                        }
+                        else
+                        {
+                            fam = prod.fam_vert;
+                            g = GameObject.Instantiate<GameObject>(prod.prefab_vert);
+                        }
+                    }
 
                     Attribut a = g.GetComponent<Attribut>();
-                    //Definir les attributs en ajoutant tous les attributs
-
                     a.stat[6] = prod.generation.ToString();
 
                     RandomTarget r = g.GetComponent<RandomTarget>();

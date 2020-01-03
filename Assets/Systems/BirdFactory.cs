@@ -14,22 +14,24 @@ public class BirdFactory : FSystem {
             fact.reloadProgress += Time.deltaTime;
             if (fact.reloadProgress >= fact.reloadTime)
             {
-                GameObject fam = fact.fam;
-                GameObject g = GameObject.Instantiate<GameObject>(fact.prefab);
-                Attribut a = g.GetComponent<Attribut>();
+                if(go.transform.childCount >= 2) { 
+                    for(int i = 0; i < go.transform.childCount * 2; i++) { 
+                        GameObject g = GameObject.Instantiate<GameObject>(fact.prefab);
+                        Attribut a = g.GetComponent<Attribut>();
 
-                a.gene = new Dictionary<string, float>();
+                        a.gene = new Dictionary<string, float>();
 
-                a.stat[7] = fact.generation.ToString();
+                        a.stat[7] = (fact.generation + 1).ToString();
 
-                RandomTarget r = g.GetComponent<RandomTarget>();
-                r.down = fact.down;
-                r.up = fact.up;
+                        RandomTarget r = g.GetComponent<RandomTarget>();
+                        r.down = fact.down;
+                        r.up = fact.up;
 
-                GameObjectManager.bind(g);
+                        GameObjectManager.bind(g);
 
-                GameObjectManager.setGameObjectParent(g,fam,false);
-
+                        GameObjectManager.setGameObjectParent(g,go,false);
+                    }
+                }
                 fact.reloadProgress = 0;
             }
         }

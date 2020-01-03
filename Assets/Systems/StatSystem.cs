@@ -35,7 +35,7 @@ public class StatSystem : FSystem
                 GameObjectManager.setGameObjectState(p, true);
                 GameObjectManager.setGameObjectState(_SelectFamily.First().transform.GetChild(0).gameObject, true);
                 a = _SelectFamily.First().GetComponent<Attribut>();
-                p.GetComponentInChildren<Text>().text = a.stat[2] + "\n" + a.stat[3] + "\n" + a.stat[4] + "\n" + a.stat[5] + "\n generation : " + a.stat[6];
+                p.GetComponentInChildren<Text>().text = a.stat[2] + "\n" + a.stat[3] + "\n" + a.stat[4] + "\n" + a.stat[5] + "\n" + a.stat[6] +"\n generation : " + a.stat[7];
                 p.GetComponentInChildren<Slider>().maxValue = int.Parse(a.stat[0]);
             }
         }
