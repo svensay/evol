@@ -21,7 +21,8 @@ public class GoalSystem : FSystem
         }
 
         Text display = go_goal.GetComponent<Goal>().display;
-        display.text = "Pigeon : " + i + " / " + go_goal.GetComponent<Goal>().goal;
+        display.text = "Pigeon Rouge: " + i + " / " + go_goal.GetComponent<Goal>().goal;
+
         if (i >= go_goal.GetComponent<Goal>().goal)
         {
             Time.timeScale = 0.0f;
