@@ -4,4 +4,5 @@ using UnityEngine.UI;
 public class Goal : MonoBehaviour {
     // Advice: FYFY component aims to contain only public members (according to Entity-Component-System paradigm).
     public Text display;
+    public int goal = 10;
 }

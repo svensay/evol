@@ -3,28 +3,33 @@ using UnityEngine;
 using FYFY;
 
 public class SwitchScene : FSystem
-{ 
-    public static SwitchScene instance;
-    public static int ind = 0;
-
-    public SwitchScene()
-    {
-        instance = this;
-        GameObject canvas = GameObject.Find("Canvas");
-        GameObjectManager.dontDestroyOnLoadAndRebind(canvas);
-    }
-
+{
+    private Family EnvGroupFamily = FamilyManager.getFamily(new AllOfComponents(typeof(EnvGroup)));
+    private Family EnvActiveFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Env)), new AllOfProperties(PropertyMatcher.PROPERTY.ACTIVE_IN_HIERARCHY));
+    private Family EnvFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Env)));
     public void onClick_left()
     {
-        ind = (ind - 1) % 4;
-        if (ind < 0) ind = 3;
-        Debug.Log(ind);
-        SceneManager.LoadScene(ind, LoadSceneMode.Single);
+        EnvGroupFamily.First().GetComponent<EnvGroup>().id = EnvGroupFamily.First().GetComponent<EnvGroup>().id - 1;
+        if (EnvGroupFamily.First().GetComponent<EnvGroup>().id < 0) EnvGroupFamily.First().GetComponent<EnvGroup>().id = 3;
+
+        GameObjectManager.setGameObjectState(EnvActiveFamily.First(), false);
+
+        foreach (GameObject go in EnvFamily)
+        {
+            if(go.GetComponent<Env>().id == EnvGroupFamily.First().GetComponent<EnvGroup>().id)
+                GameObjectManager.setGameObjectState(go, true);
+        }
     }
     public void onClick_right()
     {
-        ind = (ind + 1) % 4;
-        Debug.Log(ind);
-        SceneManager.LoadScene(ind, LoadSceneMode.Single);
+        EnvGroupFamily.First().GetComponent<EnvGroup>().id = (EnvGroupFamily.First().GetComponent<EnvGroup>().id + 1) % 4;
+
+        GameObjectManager.setGameObjectState(EnvActiveFamily.First(), false);
+
+        foreach (GameObject go in EnvFamily)
+        {
+            if (go.GetComponent<Env>().id == EnvGroupFamily.First().GetComponent<EnvGroup>().id)
+                GameObjectManager.setGameObjectState(go, true);
+        }
     }
 }

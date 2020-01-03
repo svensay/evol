@@ -8,7 +8,6 @@ public class GoalSystem : FSystem
     private Family _GoalFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Goal)));
     private Family _StatFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Attribut)));
     private Family _MessageFamily = FamilyManager.getFamily(new AllOfComponents(typeof(LevelClearMessage)));
-    private int goal = 10;
 
     // Use to process your families.
     protected override void onProcess(int familiesUpdateCount)
@@ -18,12 +17,12 @@ public class GoalSystem : FSystem
 
         foreach (GameObject go_att in _StatFamily)
         {
-            i += 1;
+            if(go_att.GetComponent<Attribut>().stat[6].Equals("Rouge")) i += 1;
         }
 
         Text display = go_goal.GetComponent<Goal>().display;
-        display.text = "Pigeon : " + i + " / " + goal;
-        if (i >= goal)
+        display.text = "Pigeon : " + i + " / " + go_goal.GetComponent<Goal>().goal;
+        if (i >= go_goal.GetComponent<Goal>().goal)
         {
             Time.timeScale = 0.0f;
             GameObject go_msg = _MessageFamily.First();

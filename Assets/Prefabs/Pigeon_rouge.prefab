@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 3482476932499952250}
   - component: {fileID: 3482476932499952248}
   m_Layer: 5
-  m_Name: Pigeon
+  m_Name: Pigeon_rouge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -133,12 +133,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stat:
-  - 100
-  - 100
+  - 30
+  - 30
   - Pigeon
   - Petit Bec
   - Grosse corpulence
   - Lent
+  - Rouge
   - 0
 --- !u!114 &3482476932499952248
 MonoBehaviour:

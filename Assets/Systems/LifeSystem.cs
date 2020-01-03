@@ -16,11 +16,14 @@ public class LifeSystem : FSystem {
     private Family _SelectFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Attribut), typeof(Select)));
 
     private Family _StatFeedFamily = FamilyManager.getFamily(new AllOfComponents(typeof(StatFeed)));
-    
+
+    private Family _EnvFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Env)), new AllOfProperties(PropertyMatcher.PROPERTY.ACTIVE_IN_HIERARCHY));
+
     private float time = 0.0f;
 
     // Use to process your families.
     protected override void onProcess(int familiesUpdateCount) {
+
         // Diminution des points vie de l'oiseaux
         time += Time.deltaTime;
         if (time >= 1.0f)
@@ -32,7 +35,10 @@ public class LifeSystem : FSystem {
                 int life_point;
                 int.TryParse(a.stat[1], out life_point);
 
-                life_point = life_point - 1;
+                if (go.GetComponent<Attribut>().stat[6].Equals("Rouge"))
+                    life_point = life_point - _EnvFamily.First().GetComponent<Env>().minus_rouge;
+                else
+                    life_point = life_point - _EnvFamily.First().GetComponent<Env>().minus_vert;
 
                 a.stat[1] = life_point.ToString();
                 if (life_point <= 0)
@@ -51,7 +57,10 @@ public class LifeSystem : FSystem {
                 int life_point;
                 int.TryParse(a.stat[1], out life_point);
 
-                life_point = life_point - 1;
+                if (go.GetComponent<Attribut>().stat[6].Equals("Rouge"))
+                    life_point = life_point - _EnvFamily.First().GetComponent<Env>().minus_rouge;
+                else
+                    life_point = life_point - _EnvFamily.First().GetComponent<Env>().minus_vert;
 
                 a.stat[1] = life_point.ToString();
                 if (life_point <= 0)

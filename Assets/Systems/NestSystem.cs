@@ -13,9 +13,6 @@ public class NestSystem : FSystem {
     //Oiseau choisit dans un nid 
     private Family _SelectNestFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Attribut), typeof(PointerOver), typeof(InNest)));
 
-    //Nid avec oiseau
-    private Family _NestBirdFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Nest), typeof(HaveBird)));
-
     // Use to process your families.
     protected override void onProcess(int familiesUpdateCount)
     {
@@ -42,6 +39,7 @@ public class NestSystem : FSystem {
                 GameObjectManager.removeComponent<HaveBird>(_SelectNestFamily.First().GetComponent<InNest>().place);
 
                 GameObjectManager.addComponent<Move>(_SelectNestFamily.First());
+
                 GameObjectManager.removeComponent<InNest>(_SelectNestFamily.First());
             }
         }

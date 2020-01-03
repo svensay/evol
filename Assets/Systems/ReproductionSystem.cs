@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 using FYFY;
 
 public class ReproductionSystem : FSystem
@@ -7,6 +8,8 @@ public class ReproductionSystem : FSystem
 
     private Family ProductionFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Production)));
     private Family ReproductionFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Reproduction)));
+    private Family ParentFamily = FamilyManager.getFamily(new AllOfComponents(typeof(InNest)), new NoneOfComponents(typeof(Move)));
+    private List<GameObject> Parent = new List<GameObject>();
 
     public void onClickRepro(int id)
     {
@@ -16,6 +19,18 @@ public class ReproductionSystem : FSystem
             {
                 GameObjectManager.setGameObjectState(goProd, true);
                 goProd.transform.GetChild(1).GetComponentInChildren<Slider>().value = 0;
+                foreach (GameObject goParent in ParentFamily)
+                {
+                    if(goParent.GetComponent<InNest>().myNest == id)
+                    {
+                        Parent.Add(goParent);
+                        GameObjectManager.removeComponent<HaveBird>(goParent.GetComponent<InNest>().place);
+
+                        GameObjectManager.addComponent<Move>(goParent);
+
+                        GameObjectManager.removeComponent<InNest>(goParent);
+                    }
+                }
             }
         }
 
@@ -37,8 +52,9 @@ public class ReproductionSystem : FSystem
                 Production prod = go.GetComponent<Production>();
                 if (sl.value >= sl.maxValue)
                 {
+                    Debug.Log(Parent.Count);
                     GameObject fam = prod.fam;
-                    GameObject g = Object.Instantiate<GameObject>(prod.prefab, go.transform.position, Quaternion.identity);
+                    GameObject g = GameObject.Instantiate<GameObject>(prod.prefab);
 
                     Attribut a = g.GetComponent<Attribut>();
                     //Definir les attributs en ajoutant tous les attributs
@@ -51,9 +67,13 @@ public class ReproductionSystem : FSystem
 
                     GameObjectManager.bind(g);
 
+                    GameObjectManager.addComponent<JustBorn>(g, new { pos = prod.pos });
+
                     GameObjectManager.setGameObjectParent(g, fam, false);
 
                     GameObjectManager.setGameObjectState(go, false);
+
+                    
                 }
                 else
                     sl.value = sl.value + Time.deltaTime;

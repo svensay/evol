@@ -3,7 +3,9 @@
 public class Production : MonoBehaviour {
 	// Advice: FYFY component aims to contain only public members (according to Entity-Component-System paradigm).
 	public int id;
-	
+
+	public GameObject pos;
+
 	public GameObject prefab;
 
 	public GameObject fam;

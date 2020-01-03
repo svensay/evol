@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
+using System.Collections.Generic;
 using FYFY;
 
 public class BirdFactory : FSystem {
@@ -15,10 +15,12 @@ public class BirdFactory : FSystem {
             if (fact.reloadProgress >= fact.reloadTime)
             {
                 GameObject fam = fact.fam;
-                GameObject g = Object.Instantiate<GameObject>(fact.prefab);
+                GameObject g = GameObject.Instantiate<GameObject>(fact.prefab);
                 Attribut a = g.GetComponent<Attribut>();
 
-                a.stat[6] = fact.generation.ToString();
+                a.gene = new Dictionary<string, float>();
+
+                a.stat[7] = fact.generation.ToString();
 
                 RandomTarget r = g.GetComponent<RandomTarget>();
                 r.down = fact.down;
@@ -27,7 +29,6 @@ public class BirdFactory : FSystem {
                 GameObjectManager.bind(g);
 
                 GameObjectManager.setGameObjectParent(g,fam,false);
-
 
                 fact.reloadProgress = 0;
             }
