@@ -10,26 +10,16 @@ public class SwitchScene : FSystem
     public void onClick_left()
     {
         EnvGroupFamily.First().GetComponent<EnvGroup>().id = EnvGroupFamily.First().GetComponent<EnvGroup>().id - 1;
-        if (EnvGroupFamily.First().GetComponent<EnvGroup>().id < 0) EnvGroupFamily.First().GetComponent<EnvGroup>().id = 3;
+        if (EnvGroupFamily.First().GetComponent<EnvGroup>().id < 0) EnvGroupFamily.First().GetComponent<EnvGroup>().id = EnvFamily.Count - 1;
 
         GameObjectManager.setGameObjectState(EnvActiveFamily.First(), false);
-
-        foreach (GameObject go in EnvFamily)
-        {
-            if(go.GetComponent<Env>().id == EnvGroupFamily.First().GetComponent<EnvGroup>().id)
-                GameObjectManager.setGameObjectState(go, true);
-        }
+        GameObjectManager.setGameObjectState(EnvGroupFamily.First().transform.GetChild(EnvGroupFamily.First().GetComponent<EnvGroup>().id).gameObject, true);
     }
     public void onClick_right()
     {
-        EnvGroupFamily.First().GetComponent<EnvGroup>().id = (EnvGroupFamily.First().GetComponent<EnvGroup>().id + 1) % 4;
+        EnvGroupFamily.First().GetComponent<EnvGroup>().id = (EnvGroupFamily.First().GetComponent<EnvGroup>().id + 1) % EnvFamily.Count;
 
         GameObjectManager.setGameObjectState(EnvActiveFamily.First(), false);
-
-        foreach (GameObject go in EnvFamily)
-        {
-            if (go.GetComponent<Env>().id == EnvGroupFamily.First().GetComponent<EnvGroup>().id)
-                GameObjectManager.setGameObjectState(go, true);
-        }
+        GameObjectManager.setGameObjectState(EnvGroupFamily.First().transform.GetChild(EnvGroupFamily.First().GetComponent<EnvGroup>().id).gameObject, true);
     }
 }

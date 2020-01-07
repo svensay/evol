@@ -16,4 +16,6 @@ public class Production : MonoBehaviour {
 
 	public Transform up;
 	public Transform down;
+
+	public bool product = false;
 }

@@ -18,7 +18,6 @@ public class ReproductionSystem : FSystem
             if (goProd.GetComponent<Production>().id == id)
             {
                 GameObjectManager.setGameObjectState(goProd, true);
-                goProd.transform.GetChild(1).GetComponentInChildren<Slider>().value = 0;
                 foreach (GameObject goParent in ParentFamily)
                 {
                     if(goParent.GetComponent<InNest>().myNest == id)
@@ -47,11 +46,10 @@ public class ReproductionSystem : FSystem
                     if (gotmp.GetComponent<Reproduction>().id == go.GetComponent<Production>().id)
                         GameObjectManager.setGameObjectState(gotmp, false);
                 }
-
-                Slider sl = go.transform.GetChild(1).GetComponentInChildren<Slider>();
                 Production prod = go.GetComponent<Production>();
-                if (sl.value >= sl.maxValue)
+                if (prod.product)
                 {
+                    prod.product = false;
                     GameObject p1 = Parent[0];
                     GameObject p2 = Parent[1];
                     GameObject fam = null;
@@ -102,8 +100,6 @@ public class ReproductionSystem : FSystem
 
                     
                 }
-                else
-                    sl.value = sl.value + Time.deltaTime;
             }
         }
     }

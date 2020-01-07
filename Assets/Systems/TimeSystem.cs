@@ -7,7 +7,6 @@ public class TimeSystem : FSystem
     private Family _TimeFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Time_Chrono)));
     private Family FactFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Factory)));
     private Family ProdFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Production)));
-    private float chronoTime = 1.0f;
     private int generation = 1;
 
     // Use to process your families.
@@ -15,11 +14,10 @@ public class TimeSystem : FSystem
     {
         GameObject go = _TimeFamily.First();
         Time_Chrono c = go.GetComponent<Time_Chrono>();
-        chronoTime += Time.deltaTime;
-        int temp = (int)chronoTime;
-        if (temp % 30 == 0)
+        c.reloadProgress += Time.deltaTime;
+        if (c.reloadProgress >= c.generation)
         {
-            chronoTime = 1.0f;
+            c.reloadProgress = 0f;
             generation++;
             
             foreach (GameObject go_fact in FactFamily)
@@ -29,6 +27,8 @@ public class TimeSystem : FSystem
 
             foreach(GameObject go_prod in ProdFamily)
             {
+                if (go_prod.activeSelf)
+                    go_prod.GetComponent<Production>().product = true;
                 go_prod.GetComponent<Production>().generation = generation;
             }
 
