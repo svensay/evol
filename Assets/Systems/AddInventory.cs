@@ -22,8 +22,8 @@ public class AddInventory : FSystem {
                 HaricotComponent h = go_h.GetComponent<HaricotComponent>();
 
                 Coin c = go_c.GetComponent<Coin>();
-                int get_value = int.Parse(c.value.text) - h.price;
-                if (get_value < 0)
+                int tmp_money = c.money - h.price;
+                if (tmp_money < 0)
                 {
                     Family _MessageShopFamily = FamilyManager.getFamily(new AllOfComponents(typeof(MessageShop)));
                     foreach (GameObject go_ms in _MessageShopFamily)
@@ -35,9 +35,13 @@ public class AddInventory : FSystem {
                 }
                 else
                 {
-                    c.value.text = get_value.ToString();
+                    c.money = tmp_money;
+                    c.value.text = tmp_money.ToString();
                     RectTransform scroll_view = h.scroll_view;
                     GameObject item = Object.Instantiate<GameObject>(h.prefab_haricot);
+
+                    GameObjectManager.bind(item);
+
                     GameObjectManager.setGameObjectParent(item, scroll_view.gameObject, true);
                 }
             }
@@ -70,6 +74,9 @@ public class AddInventory : FSystem {
                     c.value.text = get_value.ToString();
                     RectTransform scroll_view = s.scroll_view;
                     GameObject item = Object.Instantiate<GameObject>(s.prefab_sesame);
+
+                    GameObjectManager.bind(item);
+
                     GameObjectManager.setGameObjectParent(item, scroll_view.gameObject, true);
                 }
             }

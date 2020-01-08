@@ -26,6 +26,8 @@ public class BirdFactory : FSystem {
                     for(int i = 0; i < nb_child; i++) { 
                         GameObject g = GameObject.Instantiate<GameObject>(fact.prefab);
                         Attribut a = g.GetComponent<Attribut>();
+                        
+                        g.transform.position = new Vector3(Random.Range(fact.down.position.x/2, fact.up.position.x / 2), Random.Range(fact.down.position.y / 2, fact.up.position.y / 2), Random.Range(fact.down.position.z / 2, fact.up.position.z / 2));
 
                         a.gene = new Dictionary<string, float>();
 
