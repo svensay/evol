@@ -3,11 +3,23 @@ using System.Collections.Generic;
 using FYFY;
 
 public class BirdFactory : FSystem {
-
+    /// <summary>
+    /// The factory f
+    ///  Représente les usines d'instanciation d'oiseaux et le groupe d'espèce
+    /// </summary>
     private Family factory_F = FamilyManager.getFamily(new AllOfComponents(typeof(Factory)));
-	
-    // Use to process your families.
-	protected override void onProcess(int familiesUpdateCount) {
+
+    /// <summary>
+    /// Function called each time when FYFY enter in the update block where this <see cref="T:FYFY.FSystem" /> is.
+    /// Instancie des prefabs de pigeon chaque génération.
+    /// Le nombre de prefabs de pigeon instancié est compris entre 2 et le nombre pigeons déjà présent. ( Cela devrait être entre 10 et 14 par couple de pigeon car un couple de piegon donnae naissance un à deux bébé dans 5 à 7 nid )
+    /// Les vie des pigeons sont initialisé entre 3 génération et 6 génération ( car un pigeon vie entre 3 à 6 ans et une génération représente 1 ans) 
+    /// </summary>
+    /// <param name="familiesUpdateCount">Number of times the families have been updated.</param>
+    /// <remarks>
+    /// Called only is this <see cref="T:FYFY.FSystem" /> is active.
+    /// </remarks>
+    protected override void onProcess(int familiesUpdateCount) {
         foreach (GameObject go in factory_F)
         {
             Factory fact = go.GetComponent<Factory>();
@@ -40,6 +52,8 @@ public class BirdFactory : FSystem {
                         RandomTarget r = g.GetComponent<RandomTarget>();
                         r.down = fact.down;
                         r.up = fact.up;
+
+                        r.target = g.transform.position;
 
                         GameObjectManager.bind(g);
 

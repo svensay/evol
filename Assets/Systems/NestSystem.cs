@@ -3,17 +3,33 @@ using FYFY;
 using FYFY_plugins.PointerManager;
 
 public class NestSystem : FSystem {
-
-    //Nid choisit vide
+  
+    /// <summary>
+    /// The nest no bird family
+    /// Représente les places de nids sans oiseau dedans.
+    /// </summary>
     private Family _NestNoBirdFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Nest),typeof(PointerOver)), new NoneOfComponents(typeof(HaveBird)));
-   
-    //Oieaux selectionner pas encore dans un nid
+
+    /// <summary>
+    /// The select family
+    /// Représente l'oiseau sélectionné mais pas encore dans le nid
+    /// </summary>
     private Family _SelectFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Attribut),typeof(Select)), new NoneOfComponents(typeof(InNest)));
    
-    //Oiseau choisit dans un nid 
+    /// <summary>
+    /// The select nest family
+    /// Représente l'oiseau pointer par la souris dans un nid
+    /// </summary>
     private Family _SelectNestFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Attribut), typeof(PointerOver), typeof(InNest)));
-
-    // Use to process your families.
+    
+    /// <summary>
+    /// Function called each time when FYFY enter in the update block where this <see cref="T:FYFY.FSystem" /> is.
+    /// Ajoute et enléve les oiseaux d'un nid.
+    /// </summary>
+    /// <param name="familiesUpdateCount">Number of times the families have been updated.</param>
+    /// <remarks>
+    /// Called only is this <see cref="T:FYFY.FSystem" /> is active.
+    /// </remarks>
     protected override void onProcess(int familiesUpdateCount)
     {
         //Click gauche met l'oiseaux dans le nid

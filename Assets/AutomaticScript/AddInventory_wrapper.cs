@@ -9,14 +9,14 @@ public class AddInventory_wrapper : MonoBehaviour
 		this.hideFlags = HideFlags.HideInInspector; // Hide this component in Inspector
 	}
 
-	public void onClick_addHaricot()
+	public void onClick_addItem(System.Int32 id)
 	{
-		MainLoop.callAppropriateSystemMethod ("AddInventory", "onClick_addHaricot", null);
+		MainLoop.callAppropriateSystemMethod ("AddInventory", "onClick_addItem", id);
 	}
 
-	public void onClick_addSesame()
+	public void onClick_back()
 	{
-		MainLoop.callAppropriateSystemMethod ("AddInventory", "onClick_addSesame", null);
+		MainLoop.callAppropriateSystemMethod ("AddInventory", "onClick_back", null);
 	}
 
 }

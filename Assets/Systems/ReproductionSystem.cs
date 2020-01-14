@@ -6,12 +6,35 @@ using FYFY_plugins.Monitoring;
 
 public class ReproductionSystem : FSystem
 {
-
+    /// <summary>
+    /// The production family
+    ///  Représente les nids de reproduction assisté
+    /// </summary>
     private Family ProductionFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Production)));
-    private Family ReproductionFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Reproduction), typeof(ComponentMonitoring)));
-    private Family ParentFamily = FamilyManager.getFamily(new AllOfComponents(typeof(InNest)), new NoneOfComponents(typeof(Move)));
-    private List<GameObject> Parent = new List<GameObject>();
 
+    /// <summary>
+    /// The reproduction family
+    /// Représente le bouton qui active la reproduction assisté
+    /// </summary>
+    private Family ReproductionFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Reproduction), typeof(ComponentMonitoring)));
+
+    /// <summary>
+    /// The parent family
+    /// Représente les oiseaux qui sont dans des nids
+    /// </summary>
+    private Family ParentFamily = FamilyManager.getFamily(new AllOfComponents(typeof(InNest)), new NoneOfComponents(typeof(Move)));
+
+    /// <summary>
+    /// The parent
+    /// Liste des parents de la reproduction assisté
+    /// </summary>
+    private List<string> Parent = new List<string>();
+
+    /// <summary>
+    /// Ons the click repro.
+    /// Active la reproduction assisté
+    /// </summary>
+    /// <param name="id">The identifier.</param>
     public void onClickRepro(int id)
     {
         foreach(GameObject goRepro in ReproductionFamily)
@@ -19,7 +42,7 @@ public class ReproductionSystem : FSystem
             if(goRepro.GetComponent<Reproduction>().id == id)
             {
                 ComponentMonitoring cm = goRepro.GetComponent<ComponentMonitoring>();
-                MonitoringManager.trace(cm, "click", MonitoringManager.Source.PLAYER);
+                MonitoringManager.trace(cm, "perform", MonitoringManager.Source.PLAYER);
             }
         }
 
@@ -32,7 +55,7 @@ public class ReproductionSystem : FSystem
                 {
                     if(goParent.GetComponent<InNest>().myNest == id)
                     {
-                        Parent.Add(goParent);
+                        Parent.Add(goParent.GetComponent<Attribut>().stat[6]);
                         GameObjectManager.removeComponent<HaveBird>(goParent.GetComponent<InNest>().place);
 
                         GameObjectManager.addComponent<Move>(goParent);
@@ -45,6 +68,14 @@ public class ReproductionSystem : FSystem
 
     }
 
+    /// <summary>
+    /// Function called each time when FYFY enter in the update block where this <see cref="T:FYFY.FSystem" /> is.
+    /// Instancie la prefab d'un oiseau choisit à partir des gènes des parents
+    /// </summary>
+    /// <param name="familiesUpdateCount">Number of times the families have been updated.</param>
+    /// <remarks>
+    /// Called only is this <see cref="T:FYFY.FSystem" /> is active.
+    /// </remarks>
     protected override void onProcess(int familiesUpdateCount)
     {
         foreach (GameObject go in ProductionFamily)
@@ -60,14 +91,14 @@ public class ReproductionSystem : FSystem
                 if (prod.product)
                 {
                     prod.product = false;
-                    GameObject p1 = Parent[0];
-                    GameObject p2 = Parent[1];
+                    string p1 = Parent[0];
+                    string p2 = Parent[1];
                     GameObject fam = null;
                     GameObject g = null;
 
-                    if (p1.GetComponent<Attribut>().stat[6].Equals(p2.GetComponent<Attribut>().stat[6]))
+                    if (p1.Equals(p2))
                     {
-                        if (p1.GetComponent<Attribut>().stat[6].Equals("Rouge"))
+                        if (p1.Equals("Rouge"))
                         {
                             fam = prod.fam_rouge;
                             g = GameObject.Instantiate<GameObject>(prod.prefab_rouge);
@@ -94,7 +125,7 @@ public class ReproductionSystem : FSystem
                     }
 
                     Attribut a = g.GetComponent<Attribut>();
-                    a.stat[6] = prod.generation.ToString();
+                    a.stat[7] = prod.generation.ToString();
 
                     RandomTarget r = g.GetComponent<RandomTarget>();
                     r.down = prod.down;
@@ -107,8 +138,6 @@ public class ReproductionSystem : FSystem
                     GameObjectManager.setGameObjectParent(g, fam, false);
 
                     GameObjectManager.setGameObjectState(go, false);
-
-                    
                 }
             }
         }

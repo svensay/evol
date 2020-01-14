@@ -2,43 +2,61 @@
 using UnityEngine.UI;
 using FYFY;
 
-public class AddInventory : FSystem {
-    
-    public static AddInventory instanceAddInv;
-
+public class AddInventory : FSystem
+{
+    /// <summary>
+    /// The coin family
+    /// Représente les piéces que posséde le joueur
+    /// </summary>
     private Family _CoinFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Coin)));
 
-    public AddInventory()
-    {
-        instanceAddInv = this;
-    }
-    public void onClick_addHaricot()
-    {
-        foreach (GameObject go_c in _CoinFamily)
-        {
-            Family _HaricotFamily = FamilyManager.getFamily(new AllOfComponents(typeof(HaricotComponent)));
-            foreach (GameObject go_h in _HaricotFamily)
-            {
-                HaricotComponent h = go_h.GetComponent<HaricotComponent>();
+    /// <summary>
+    /// The object family/
+    /// Représante les objets dans le magasin
+    /// </summary>
+    private Family _ObjectFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Object)));
 
-                Coin c = go_c.GetComponent<Coin>();
-                int tmp_money = c.money - h.price;
+    /// <summary>
+    /// The message shop family
+    /// Représente le texte d'affichage dans le magasin
+    /// </summary>
+    private Family _MessageShopFamily = FamilyManager.getFamily(new AllOfComponents(typeof(MessageShop)));
+
+    /// <summary>
+    /// The back game family
+    /// Représente le bouton de retour dans le magasin
+    /// </summary>
+    private Family _BackGameFamily = FamilyManager.getFamily(new AllOfComponents(typeof(BackGame)));
+
+
+    /// <summary>
+    /// Ons the click add item.
+    /// Ajoute l'item dans l'inventaire dont l'identifiant est égale à id et vérifie si le joueur a assez d'argent
+    /// </summary>
+    /// <param name="id">The identifier.</param>
+    public void onClick_addItem(int id)
+    {
+        foreach (GameObject go in _ObjectFamily)
+        {
+            Object o = go.GetComponent<Object>();
+            if (o.id == id)
+            {
+                MessageShop ms = _MessageShopFamily.First().GetComponent<MessageShop>();
+                Text d = ms.display;
+
+                Coin c = _CoinFamily.First().GetComponent<Coin>();
+                int tmp_money = c.money - o.price;
                 if (tmp_money < 0)
                 {
-                    Family _MessageShopFamily = FamilyManager.getFamily(new AllOfComponents(typeof(MessageShop)));
-                    foreach (GameObject go_ms in _MessageShopFamily)
-                    {
-                        MessageShop ms = go_ms.GetComponent<MessageShop>();
-                        Text d = ms.display;
-                        d.text = "Tu n'a pas " + h.price + " piéce pour acheté un haricot.";
-                    }
+                    d.text = "Tu n'a pas " + o.price + " piéce pour acheté.";
                 }
                 else
                 {
+                    d.text = "Acheté.";
                     c.money = tmp_money;
                     c.value.text = tmp_money.ToString();
-                    RectTransform scroll_view = h.scroll_view;
-                    GameObject item = Object.Instantiate<GameObject>(h.prefab_haricot);
+                    RectTransform scroll_view = o.scroll_view;
+                    GameObject item = Object.Instantiate<GameObject>(o.prefab);
 
                     GameObjectManager.bind(item);
 
@@ -48,38 +66,16 @@ public class AddInventory : FSystem {
         }
     }
 
-    public void onClick_addSesame()
+    /// <summary>
+    /// Ons the click back.
+    /// Retourne dans le jeu quand on est dans le magasin
+    /// </summary>
+    public void onClick_back()
     {
-        foreach (GameObject go_c in _CoinFamily)
-        {
-            Family _SesameFamily = FamilyManager.getFamily(new AllOfComponents(typeof(SesameComponent)));
-            foreach (GameObject go_s in _SesameFamily)
-            {
-                SesameComponent s = go_s.GetComponent<SesameComponent>();
+        BackGame bg = _BackGameFamily.First().GetComponent<BackGame>();
+        GameObject panel = bg.boutique;
+        GameObjectManager.setGameObjectState(panel, false);
+        Time.timeScale = 1.0f;
 
-                Coin c = go_c.GetComponent<Coin>();
-                int get_value = int.Parse(c.value.text) - s.price;
-                if (get_value < 0)
-                {
-                    Family _MessageShopFamily = FamilyManager.getFamily(new AllOfComponents(typeof(MessageShop)));
-                    foreach (GameObject go_ms in _MessageShopFamily)
-                    {
-                        MessageShop ms = go_ms.GetComponent<MessageShop>();
-                        Text d = ms.display;
-                        d.text = "Tu n'a pas " + s.price + " piéce pour acheté une sesame.";
-                    }
-                }
-                else
-                {
-                    c.value.text = get_value.ToString();
-                    RectTransform scroll_view = s.scroll_view;
-                    GameObject item = Object.Instantiate<GameObject>(s.prefab_sesame);
-
-                    GameObjectManager.bind(item);
-
-                    GameObjectManager.setGameObjectParent(item, scroll_view.gameObject, true);
-                }
-            }
-        }
     }
 }

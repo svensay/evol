@@ -3,6 +3,7 @@
 public class DelayActivate : MonoBehaviour {
 	// Advice: FYFY component aims to contain only public members (according to Entity-Component-System paradigm).
 	public int generationActivate;
+    public int generation_plus_env;
 
     public bool act_goal_rouge = false;
     public bool reverse_goal_rouge = false;

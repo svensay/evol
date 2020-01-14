@@ -3,13 +3,38 @@ using UnityEngine;
 
 public class TimeSystem : FSystem
 {
-
+    /// <summary>
+    /// The time family
+    /// Représente le temps affiché
+    /// </summary>
     private Family _TimeFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Time_Chrono)));
+
+    /// <summary>
+    /// The fact family
+    ///  Représente les usines d'instanciation d'oiseaux et le groupe d'espèce
+    /// </summary>
     private Family FactFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Factory)));
+
+    /// <summary>
+    /// The product family
+    /// Représente les nids de reproduction assisté
+    /// </summary>
     private Family ProdFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Production)));
+
+    /// <summary>
+    /// The generation
+    /// Représente la génération a l'instant t
+    /// </summary>
     private int generation = 1;
 
-    // Use to process your families.
+    /// <summary>
+    /// Function called each time when FYFY enter in the update block where this <see cref="T:FYFY.FSystem" /> is.
+    /// Avance d'une génération toute les 15 secs et verifie s'il y a des naissances dû à la reproduction assisté pour les faire naître
+    /// </summary>
+    /// <param name="familiesUpdateCount">Number of times the families have been updated.</param>
+    /// <remarks>
+    /// Called only is this <see cref="T:FYFY.FSystem" /> is active.
+    /// </remarks>
     protected override void onProcess(int familiesUpdateCount)
     {
         GameObject go = _TimeFamily.First();

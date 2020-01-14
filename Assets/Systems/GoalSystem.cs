@@ -7,12 +7,34 @@ using UnityEngine.UI;
 public class GoalSystem : FSystem
 {
 
+    /// <summary>
+    /// The goal family
+    /// Représente l'objetif que le joueur doit atteindre
+    /// </summary>
     private Family _GoalFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Goal)));
-    private Family _StatFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Attribut)));
+
+    /// <summary>
+    /// The fact family
+    ///  Représente les usines d'instanciation d'oiseaux et le groupe d'espèce
+    /// </summary>
+    private Family _FactFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Factory)));
+    
+    /// <summary>
+    /// The message family
+    /// Représente la page de réussite
+    /// </summary>
     private Family _MessageFamily = FamilyManager.getFamily(new AllOfComponents(typeof(LevelClearMessage)));
 
+    /// <summary>
+    /// The next monit family
+    /// Composant pour tracer le clique sur "Niveau suivant" du joueur
+    /// </summary>
     private Family _NextMonitFamily = FamilyManager.getFamily(new AllOfComponents(typeof(NextLevelMonitoring), typeof(ComponentMonitoring)));
 
+    /// <summary>
+    /// Ons the click next stage.
+    /// Permet de passer au niveau suivant
+    /// </summary>
     public void onClick_NextStage()
     {
         ComponentMonitoring cm = _NextMonitFamily.First().GetComponent<ComponentMonitoring>();
@@ -23,22 +45,29 @@ public class GoalSystem : FSystem
         GameObjectManager.loadScene(sceneID + 1);
     }
 
-    // Use to process your families.
+    /// <summary>
+    /// Function called each time when FYFY enter in the update block where this <see cref="T:FYFY.FSystem" /> is.
+    /// Définie les objectifs et vérifie si les objectifs sont atteint.
+    /// </summary>
+    /// <param name="familiesUpdateCount">Number of times the families have been updated.</param>
+    /// <remarks>
+    /// Called only is this <see cref="T:FYFY.FSystem" /> is active.
+    /// </remarks>
     protected override void onProcess(int familiesUpdateCount)
     {
         int i = 0;
         int j = 0;
         GameObject go_goal = _GoalFamily.First();
 
-        foreach (GameObject go_att in _StatFamily)
+        foreach (GameObject go in _FactFamily)
         {
-            if (go_att.GetComponent<Attribut>().stat[6].Equals("Rouge")) i += 1;
-            else j += 1;
+            if (go.name.Equals("Pigeon_rouge")) i = go.transform.childCount;
+            else j = go.transform.childCount;
         }
         Goal g = go_goal.GetComponent<Goal>();
 
         Text display = g.display;
-        if(g.act_goal_rouge && !g.act_goal_vert) 
+        if(g.act_goal_rouge && !g.act_goal_vert) // Affiche de l'objectif 
         { 
             if(g.reverse_goal_rouge)
                 display.text = "Pigeon Rouge: " + i + " / " + g.goal_rouge + " (-)";

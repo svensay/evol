@@ -4,13 +4,26 @@ using FYFY;
 
 public class ActivateReproductionSystem : FSystem {
 
-    //Nid
+    /// <summary>
+    /// The nest family
+    /// Représente les nids
+    /// </summary>
     private Family _NestFamily = FamilyManager.getFamily(new AllOfComponents(typeof(ActivateReproduction)));
 
-    //Oiseaux dans un nid 
+    /// <summary>
+    /// The bird in nest family
+    /// Représente les oiseaux qui sont dans un nid
+    /// </summary>
     private Family _BirdInNestFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Attribut), typeof(InNest)));
 
-    // Use to process your families.
+    /// <summary>
+    /// Function called each time when FYFY enter in the update block where this <see cref="T:FYFY.FSystem" /> is.
+    /// Systéme permettant de vérifié si deux oiseaux sont présent dans un nid
+    /// </summary>
+    /// <param name="familiesUpdateCount">Number of times the families have been updated.</param>
+    /// <remarks>
+    /// Called only is this <see cref="T:FYFY.FSystem" /> is active.
+    /// </remarks>
     protected override void onProcess(int familiesUpdateCount) {
         foreach(GameObject go1 in _BirdInNestFamily)
         {

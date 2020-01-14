@@ -1,27 +1,60 @@
 ﻿using UnityEngine;
 using FYFY;
 
-public class LifeSystem : FSystem {
+public class LifeSystem : FSystem 
+{
 
-    //Oiseaux qui ne sont pas dans un nid
-    private Family _StatFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Attribut)), new NoneOfComponents(typeof(InNest)), new AllOfProperties(PropertyMatcher.PROPERTY.ACTIVE_IN_HIERARCHY));    
-    
-    //Oiseaux qui sont dans un nid
+    /// <summary>
+    /// The stat family
+    /// Représente les oiseaux qui ne sont pas dans un nid    
+    /// </summary>
+    private Family _StatFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Attribut)), new NoneOfComponents(typeof(InNest)), new AllOfProperties(PropertyMatcher.PROPERTY.ACTIVE_IN_HIERARCHY));
+
+
+    /// <summary>
+    /// The stat in nest family
+    /// Représente les oiseaux qui sont dans un nid.
+    /// </summary>
     private Family _StatInNestFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Attribut), typeof(InNest)), new AllOfProperties(PropertyMatcher.PROPERTY.ACTIVE_IN_HIERARCHY));
-
-    //Nid avec oiseau
+    
+    /// <summary>
+    /// The nest bird family
+    /// Représente les nids avec au moins un oiseau
+    /// </summary>
     private Family _NestBirdFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Nest), typeof(HaveBird)));
     
-    //Oiseaux selectionner
+    /// <summary>
+    /// The select family
+    /// Représente un oiseaux sélectionné
+    /// </summary>
     private Family _SelectFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Attribut), typeof(Select)));
 
+    /// <summary>
+    /// The stat feed family
+    /// Représente la page d'affichage des attribut
+    /// </summary>
     private Family _StatFeedFamily = FamilyManager.getFamily(new AllOfComponents(typeof(StatFeed)));
 
+    /// <summary>
+    /// The env family
+    /// Représente l'environnement actif
+    /// </summary>
     private Family _EnvFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Env)), new AllOfProperties(PropertyMatcher.PROPERTY.ACTIVE_IN_HIERARCHY));
 
+    /// <summary>
+    /// The time
+    /// Représente le temps
+    /// </summary>
     private float time = 0.0f;
 
-    // Use to process your families.
+    /// <summary>
+    /// Function called each time when FYFY enter in the update block where this <see cref="T:FYFY.FSystem" /> is.
+    /// Selon l'environnement, diminue les points de vie des oiseaux et si les points de vie atteigne 0, on supprime l'oiseaux
+    /// </summary>
+    /// <param name="familiesUpdateCount">Number of times the families have been updated.</param>
+    /// <remarks>
+    /// Called only is this <see cref="T:FYFY.FSystem" /> is active.
+    /// </remarks>
     protected override void onProcess(int familiesUpdateCount) {
 
         // Diminution des points vie de l'oiseaux

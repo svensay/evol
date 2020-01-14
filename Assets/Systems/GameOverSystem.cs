@@ -5,13 +5,33 @@ using UnityEngine.SceneManagement;
 
 public class GameOverSystem : FSystem {
 
+	/// <summary>
+	/// The factory f
+	///  Représente les usines d'instanciation d'oiseaux et le groupe d'espèce
+	/// </summary>
 	private Family factory_F = FamilyManager.getFamily(new AllOfComponents(typeof(Factory)));
 
+	/// <summary>
+	/// The game over family
+	/// Représente la page de "game over"
+	/// </summary>
 	private Family GameOverFamily = FamilyManager.getFamily(new AllOfComponents(typeof(GameOver)));
 
+	/// <summary>
+	/// The goal family
+	/// Représente l'objetif que le joueur doit atteindre
+	/// </summary>
 	private Family _GoalFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Goal)));
-	
-	// Use to process your families.
+
+	/// <summary>
+	/// Function called each time when FYFY enter in the update block where this <see cref="T:FYFY.FSystem" /> is.
+	/// Verifie si lorsuque l'on veut accroître une population il ne faut pas atteindre 0 et si l'on veut décroître une population ne pas atteindre 100.
+	/// Sinon active la page de "game over"
+	/// </summary>
+	/// <param name="familiesUpdateCount">Number of times the families have been updated.</param>
+	/// <remarks>
+	/// Called only is this <see cref="T:FYFY.FSystem" /> is active.
+	/// </remarks>
 	protected override void onProcess(int familiesUpdateCount) {
 		Goal g = _GoalFamily.First().GetComponent<Goal>();
 		foreach(GameObject go in factory_F)
