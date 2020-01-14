@@ -7,7 +7,7 @@ public class UseItemSystem : FSystem {
 
 	private Family factory_F = FamilyManager.getFamily(new AllOfComponents(typeof(Factory)));
 
-	private Family _ActInventoryFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Active_Inventory)));
+	private Family _InventoryFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Inventory)));
 
 	public void clickUse(GameObject item)
 	{
@@ -17,7 +17,7 @@ public class UseItemSystem : FSystem {
 		Object.Destroy(item);
 
 		GameObjectManager.setGameObjectState(ChooseFamily.First(), true);
-		GameObjectManager.setGameObjectState(_ActInventoryFamily.First().GetComponent<Active_Inventory>().scroll_view, false);
+		GameObjectManager.setGameObjectState(_InventoryFamily.First(), false);
 		
 	}
 

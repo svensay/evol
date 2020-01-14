@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-public class GameOver : MonoBehaviour {
+public class Accelerate : MonoBehaviour {
 	// Advice: FYFY component aims to contain only public members (according to Entity-Component-System paradigm).
-	public bool game_over_reach = true;
 }

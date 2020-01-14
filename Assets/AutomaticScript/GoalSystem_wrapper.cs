@@ -9,4 +9,9 @@ public class GoalSystem_wrapper : MonoBehaviour
 		this.hideFlags = HideFlags.HideInInspector; // Hide this component in Inspector
 	}
 
+	public void onClick_NextStage()
+	{
+		MainLoop.callAppropriateSystemMethod ("GoalSystem", "onClick_NextStage", null);
+	}
+
 }

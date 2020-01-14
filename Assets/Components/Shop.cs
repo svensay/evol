@@ -1,6 +1,0 @@
-﻿using UnityEngine;
-
-public class Shop : MonoBehaviour {
-    // Advice: FYFY component aims to contain only public members (according to Entity-Component-System paradigm).
-    public GameObject boutique;
-}

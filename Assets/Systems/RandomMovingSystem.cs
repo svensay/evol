@@ -4,7 +4,7 @@ using FYFY;
 public class RandomMovingSystem : FSystem
 {
 
-    private Family _randomMovingGO = FamilyManager.getFamily(new AllOfComponents(typeof(Move), typeof(RandomTarget)));
+    private Family _randomMovingGO = FamilyManager.getFamily(new AllOfComponents(typeof(Move), typeof(RandomTarget)), new AllOfProperties(PropertyMatcher.PROPERTY.ACTIVE_IN_HIERARCHY));
 
     public RandomMovingSystem()
     {

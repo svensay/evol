@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using FYFY;
+using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class GameOverSystem : FSystem {
 
@@ -8,17 +10,23 @@ public class GameOverSystem : FSystem {
 	private Family GameOverFamily = FamilyManager.getFamily(new AllOfComponents(typeof(GameOver)));
 
 	private Family _GoalFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Goal)));
-
+	
 	// Use to process your families.
 	protected override void onProcess(int familiesUpdateCount) {
 		Goal g = _GoalFamily.First().GetComponent<Goal>();
 		foreach(GameObject go in factory_F)
 		{
 			if (g.act_goal_rouge && !g.reverse_goal_rouge && go.name.Equals("Pigeon_rouge") && go.transform.childCount <= 0
-				|| g.act_goal_vert && !g.reverse_goal_vert && go.name.Equals("Pigeon_vert") && go.transform.childCount <= 0)
+				|| g.act_goal_vert && !g.reverse_goal_vert && go.name.Equals("Pigeon_vert") && go.transform.childCount <= 0
+				|| g.act_goal_rouge && g.reverse_goal_rouge && go.name.Equals("Pigeon_rouge") && go.transform.childCount >= 100
+				|| g.act_goal_vert && g.reverse_goal_vert && go.name.Equals("Pigeon_vert") && go.transform.childCount >= 100)
 			{
-				GameObjectManager.setGameObjectState(GameOverFamily.First(), true);
-				Time.timeScale = 0.0f;
+				if (GameOverFamily.First().GetComponent<GameOver>().game_over_reach)
+				{
+					GameObjectManager.setGameObjectState(GameOverFamily.First(), true);
+					Time.timeScale = 0.0f;
+					GameOverFamily.First().GetComponent<GameOver>().game_over_reach = false;
+				}
 			}
 		}
 	}

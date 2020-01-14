@@ -2,17 +2,27 @@
 using UnityEngine.UI;
 using System.Collections.Generic;
 using FYFY;
+using FYFY_plugins.Monitoring;
 
 public class ReproductionSystem : FSystem
 {
 
     private Family ProductionFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Production)));
-    private Family ReproductionFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Reproduction)));
+    private Family ReproductionFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Reproduction), typeof(ComponentMonitoring)));
     private Family ParentFamily = FamilyManager.getFamily(new AllOfComponents(typeof(InNest)), new NoneOfComponents(typeof(Move)));
     private List<GameObject> Parent = new List<GameObject>();
 
     public void onClickRepro(int id)
     {
+        foreach(GameObject goRepro in ReproductionFamily)
+        {
+            if(goRepro.GetComponent<Reproduction>().id == id)
+            {
+                ComponentMonitoring cm = goRepro.GetComponent<ComponentMonitoring>();
+                MonitoringManager.trace(cm, "click", MonitoringManager.Source.PLAYER);
+            }
+        }
+
         foreach (GameObject goProd in ProductionFamily)
         {
             if (goProd.GetComponent<Production>().id == id)

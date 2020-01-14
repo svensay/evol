@@ -14,9 +14,9 @@ public class EchapSystem_wrapper : MonoBehaviour
 		MainLoop.callAppropriateSystemMethod ("EchapSystem", "onClickContinue", null);
 	}
 
-	public void onClickRecomence()
+	public void onClickRecomence(System.Int32 id)
 	{
-		MainLoop.callAppropriateSystemMethod ("EchapSystem", "onClickRecomence", null);
+		MainLoop.callAppropriateSystemMethod ("EchapSystem", "onClickRecomence", id);
 	}
 
 	public void onClickQuit()

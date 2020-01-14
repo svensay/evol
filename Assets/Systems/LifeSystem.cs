@@ -4,10 +4,10 @@ using FYFY;
 public class LifeSystem : FSystem {
 
     //Oiseaux qui ne sont pas dans un nid
-    private Family _StatFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Attribut)), new NoneOfComponents(typeof(InNest)));    
+    private Family _StatFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Attribut)), new NoneOfComponents(typeof(InNest)), new AllOfProperties(PropertyMatcher.PROPERTY.ACTIVE_IN_HIERARCHY));    
     
     //Oiseaux qui sont dans un nid
-    private Family _StatInNestFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Attribut), typeof(InNest)));
+    private Family _StatInNestFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Attribut), typeof(InNest)), new AllOfProperties(PropertyMatcher.PROPERTY.ACTIVE_IN_HIERARCHY));
 
     //Nid avec oiseau
     private Family _NestBirdFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Nest), typeof(HaveBird)));

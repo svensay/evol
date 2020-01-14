@@ -10,4 +10,6 @@ public class Goal : MonoBehaviour {
     public bool act_goal_vert = false;
     public bool reverse_goal_vert = false;
     public int goal_vert = 10;
+
+    public bool goal_reach = true;
 }

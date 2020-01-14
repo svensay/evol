@@ -1,5 +1,7 @@
 ﻿using FYFY;
+using FYFY_plugins.Monitoring;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GoalSystem : FSystem
@@ -8,6 +10,18 @@ public class GoalSystem : FSystem
     private Family _GoalFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Goal)));
     private Family _StatFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Attribut)));
     private Family _MessageFamily = FamilyManager.getFamily(new AllOfComponents(typeof(LevelClearMessage)));
+
+    private Family _NextMonitFamily = FamilyManager.getFamily(new AllOfComponents(typeof(NextLevelMonitoring), typeof(ComponentMonitoring)));
+
+    public void onClick_NextStage()
+    {
+        ComponentMonitoring cm = _NextMonitFamily.First().GetComponent<ComponentMonitoring>();
+        MonitoringManager.trace(cm, "perform", MonitoringManager.Source.PLAYER);
+
+        Time.timeScale = 1.0f;
+        int sceneID = SceneManager.GetActiveScene().buildIndex;
+        GameObjectManager.loadScene(sceneID + 1);
+    }
 
     // Use to process your families.
     protected override void onProcess(int familiesUpdateCount)
@@ -26,16 +40,29 @@ public class GoalSystem : FSystem
         Text display = g.display;
         if(g.act_goal_rouge && !g.act_goal_vert) 
         { 
-            display.text = "Pigeon Rouge: " + i + " / " + g.goal_rouge;
+            if(g.reverse_goal_rouge)
+                display.text = "Pigeon Rouge: " + i + " / " + g.goal_rouge + " (-)";
+            else
+                display.text = "Pigeon Rouge: " + i + " / " + g.goal_rouge + " (+)";
         }
         else if(!g.act_goal_rouge && g.act_goal_vert)
         {
-            display.text = "Pigeon Vert: " + j + " / " + g.goal_vert;
+            if (g.reverse_goal_vert)
+                display.text = "Pigeon Vert: " + j + " / " + g.goal_vert + " (-)";
+            else
+                display.text = "Pigeon Vert: " + j + " / " + g.goal_vert + " (+)";
+
         }
         else
         {
-            display.text = "Pigeon Rouge: " + i + " / " + g.goal_rouge + "\n" 
-                + "Pigeon Vert: " + j + " / " + g.goal_vert;
+            if(!g.reverse_goal_rouge && !g.reverse_goal_vert)
+                display.text = "Pigeon Rouge: " + i + " / " + g.goal_rouge + " (+)\n" + "Pigeon Vert: " + j + " / " + g.goal_vert + " (+)";
+            else if(!g.reverse_goal_rouge && g.reverse_goal_vert)
+                display.text = "Pigeon Rouge: " + i + " / " + g.goal_rouge + " (+)\n" + "Pigeon Vert: " + j + " / " + g.goal_vert + " (-)";
+            else if (g.reverse_goal_rouge && !g.reverse_goal_vert)
+                display.text = "Pigeon Rouge: " + i + " / " + g.goal_rouge + " (-)\n" + "Pigeon Vert: " + j + " / " + g.goal_vert + " (+)";
+            else
+                display.text = "Pigeon Rouge: " + i + " / " + g.goal_rouge + " (-)\n" + "Pigeon Vert: " + j + " / " + g.goal_vert + " (-)";
         }
 
         if (( g.act_goal_rouge && !g.act_goal_vert && !g.reverse_goal_rouge && i >= g.goal_rouge ) // Condition objectif seulement pigeon rouge >= 
@@ -47,11 +74,12 @@ public class GoalSystem : FSystem
             || (g.act_goal_rouge && g.act_goal_vert && g.reverse_goal_rouge && !g.reverse_goal_vert && i <= g.goal_rouge && j >= g.goal_vert) // Condition pigeon rouge <= et pigeon vert >=
             || (g.act_goal_rouge && g.act_goal_vert && !g.reverse_goal_rouge && !g.reverse_goal_vert && i >= g.goal_rouge && j >= g.goal_vert)) // Condition tous les pigeons >=
         {
-            Time.timeScale = 0.0f;
-            GameObject go_msg = _MessageFamily.First();
-            LevelClearMessage lcm = go_msg.GetComponent<LevelClearMessage>();
-            GameObject msg = lcm.msg;
-            GameObjectManager.setGameObjectState(msg, true);
+            if (g.goal_reach)
+            {
+                Time.timeScale = 0.0f;
+                GameObjectManager.setGameObjectState(_MessageFamily.First(), true);
+                g.goal_reach = false;
+            }
         }
     }
 }

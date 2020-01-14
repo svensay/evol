@@ -1,9 +1,5 @@
 ﻿using UnityEngine;
 
-public class Pause : MonoBehaviour {
+public class Shop : MonoBehaviour {
     // Advice: FYFY component aims to contain only public members (according to Entity-Component-System paradigm).
-    public void onCLick()
-    {
-        ChangeTimeSystem.instanceChTime.onClick_pause();
-    }
 }

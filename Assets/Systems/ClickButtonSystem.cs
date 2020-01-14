@@ -1,46 +1,57 @@
 ﻿using UnityEngine;
 using FYFY;
+using FYFY_plugins.Monitoring;
 
 public class ClickButtonSystem : FSystem 
 {
     private Family _ShopFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Shop)));
-    private Family _ActInventoryFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Active_Inventory)));
+    private Family _InventoryFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Inventory)));
     private Family _HelpFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Help)));
 
+    private Family _ShopMonitFamily = FamilyManager.getFamily(new AllOfComponents(typeof(ShopMonitoring), typeof(ComponentMonitoring)));
+    private Family _InventoryMonitFamily = FamilyManager.getFamily(new AllOfComponents(typeof(InventoryMonitoring), typeof(ComponentMonitoring)));
+    private Family _HelpMonitFamily = FamilyManager.getFamily(new AllOfComponents(typeof(HelpMonitoring), typeof(ComponentMonitoring)));
     public void onClick_shop()
     {
         GameObject go = _ShopFamily.First();
-        Shop s = go.GetComponent<Shop>();
-        GameObject panel = s.boutique;
-        GameObjectManager.setGameObjectState(panel, true);
+
+        ComponentMonitoring cm = _ShopMonitFamily.First().GetComponent<ComponentMonitoring>();
+        MonitoringManager.trace(cm, "perform", MonitoringManager.Source.PLAYER);
+
+
+        GameObjectManager.setGameObjectState(go, true);
         Time.timeScale = 0.0f;
     }
 
     public void onClick_inventory()
     {
-        GameObject go = _ActInventoryFamily.First();
-        Active_Inventory a = go.GetComponent<Active_Inventory>();
-        if (a.scroll_view.activeSelf)
-            GameObjectManager.setGameObjectState(a.scroll_view, false);
+        GameObject go = _InventoryFamily.First();
+
+        ComponentMonitoring cm = _InventoryMonitFamily.First().GetComponent<ComponentMonitoring>();
+        MonitoringManager.trace(cm, "perform", MonitoringManager.Source.PLAYER);
+
+        if (go.activeSelf)
+            GameObjectManager.setGameObjectState(go, false);
         else
-            GameObjectManager.setGameObjectState(a.scroll_view, true);
+            GameObjectManager.setGameObjectState(go, true);
     }
 
     public void onClick_help()
     {
         GameObject go = _HelpFamily.First();
-        Help s = go.GetComponent<Help>();
-        GameObject panel = s.help;
-        GameObjectManager.setGameObjectState(panel, true);
+
+        ComponentMonitoring cm = _HelpMonitFamily.First().GetComponent<ComponentMonitoring>();
+        MonitoringManager.trace(cm, "perform", MonitoringManager.Source.PLAYER);
+
+        GameObjectManager.setGameObjectState(go, true);
         Time.timeScale = 0.0f;
     }
 
     public void onClick_QuitHelp()
     {
         GameObject go = _HelpFamily.First();
-        Help s = go.GetComponent<Help>();
-        GameObject panel = s.help;
-        GameObjectManager.setGameObjectState(panel, false);
+
+        GameObjectManager.setGameObjectState(go, false);
         Time.timeScale = 1.0f;
     }
 }

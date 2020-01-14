@@ -22,7 +22,7 @@ public class BirdFactory : FSystem {
                 }
 
                 if(go.activeSelf && childSafe >= 2) {
-                    int nb_child = Random.Range((go.transform.childCount/2)*5, (go.transform.childCount/2)*14); // les piegeons se reproduisent tous les ans et une femelle possede 5 à 7 nichée qui comporte 1 à 2 bébé 
+                    int nb_child = Random.Range(2, go.transform.childCount);
                     for(int i = 0; i < nb_child; i++) { 
                         GameObject g = GameObject.Instantiate<GameObject>(fact.prefab);
                         Attribut a = g.GetComponent<Attribut>();
