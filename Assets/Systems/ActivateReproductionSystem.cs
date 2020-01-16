@@ -6,9 +6,9 @@ public class ActivateReproductionSystem : FSystem {
 
     /// <summary>
     /// The nest family
-    /// Représente les nids
+    /// Représente le bouton qui acitve la prodution
     /// </summary>
-    private Family _NestFamily = FamilyManager.getFamily(new AllOfComponents(typeof(ActivateReproduction)));
+    private Family _ReproductionButtonFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Reproduction)));
 
     /// <summary>
     /// The bird in nest family
@@ -31,11 +31,11 @@ public class ActivateReproductionSystem : FSystem {
             {
                 if (!go1.Equals(go2) && go1.GetComponent<InNest>().myNest == go2.GetComponent<InNest>().myNest)
                 {
-                    foreach (GameObject go3 in _NestFamily)
+                    foreach (GameObject go3 in _ReproductionButtonFamily)
                     {
-                        if (go1.GetComponent<InNest>().myNest == go3.GetComponent<ActivateReproduction>().id)
+                        if (go1.GetComponent<InNest>().myNest == go3.GetComponent<Reproduction>().id)
                         {
-                            GameObjectManager.setGameObjectState(go3.GetComponent<ActivateReproduction>().reproduction, true);
+                            GameObjectManager.setGameObjectState(go3, true);
                         }
                             
                     }

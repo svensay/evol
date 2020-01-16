@@ -41,8 +41,6 @@ public class BirdFactory : FSystem {
                         
                         g.transform.position = new Vector3(Random.Range(fact.down.position.x/2, fact.up.position.x / 2), Random.Range(fact.down.position.y / 2, fact.up.position.y / 2), Random.Range(fact.down.position.z / 2, fact.up.position.z / 2));
 
-                        a.gene = new Dictionary<string, float>();
-
                         int vie = Random.Range(3 * (int)fact.reloadTime, 6 * (int)fact.reloadTime); // Vie entre 3 à 6 ans ( 1 generation = 1 ans)
                         a.stat[0] = vie.ToString();
                         a.stat[1] = vie.ToString();

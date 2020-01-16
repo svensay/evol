@@ -26,7 +26,7 @@ public class AddInventory : FSystem
     /// The back game family
     /// Représente le bouton de retour dans le magasin
     /// </summary>
-    private Family _BackGameFamily = FamilyManager.getFamily(new AllOfComponents(typeof(BackGame)));
+    private Family _ShopFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Shop)));
 
 
     /// <summary>
@@ -41,8 +41,7 @@ public class AddInventory : FSystem
             Object o = go.GetComponent<Object>();
             if (o.id == id)
             {
-                MessageShop ms = _MessageShopFamily.First().GetComponent<MessageShop>();
-                Text d = ms.display;
+                Text d = _MessageShopFamily.First().GetComponent<Text>();
 
                 Coin c = _CoinFamily.First().GetComponent<Coin>();
                 int tmp_money = c.money - o.price;
@@ -54,7 +53,7 @@ public class AddInventory : FSystem
                 {
                     d.text = "Acheté.";
                     c.money = tmp_money;
-                    c.value.text = tmp_money.ToString();
+                    _CoinFamily.First().GetComponent<Text>().text = tmp_money.ToString();
                     RectTransform scroll_view = o.scroll_view;
                     GameObject item = Object.Instantiate<GameObject>(o.prefab);
 
@@ -72,9 +71,7 @@ public class AddInventory : FSystem
     /// </summary>
     public void onClick_back()
     {
-        BackGame bg = _BackGameFamily.First().GetComponent<BackGame>();
-        GameObject panel = bg.boutique;
-        GameObjectManager.setGameObjectState(panel, false);
+        GameObjectManager.setGameObjectState(_ShopFamily.First(), false);
         Time.timeScale = 1.0f;
 
     }

@@ -1,5 +1,6 @@
 ﻿using FYFY;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CoinSystem : FSystem
 {
@@ -26,7 +27,7 @@ public class CoinSystem : FSystem
         {
             c.inc_Time = 0.0f;
             c.money = c.money + c.gain;
-            c.value.text = c.money.ToString();
+            _CoinFamily.First().GetComponent<Text>().text = c.money.ToString();
         }
 
     }

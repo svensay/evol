@@ -66,7 +66,7 @@ public class GoalSystem : FSystem
         }
         Goal g = go_goal.GetComponent<Goal>();
 
-        Text display = g.display;
+        Text display = go_goal.GetComponent<Text>();
         if(g.act_goal_rouge && !g.act_goal_vert) // Affiche de l'objectif 
         { 
             if(g.reverse_goal_rouge)

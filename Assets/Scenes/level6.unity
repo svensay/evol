@@ -1762,7 +1762,6 @@ GameObject:
   - component: {fileID: 261704926}
   - component: {fileID: 261704928}
   - component: {fileID: 261704927}
-  - component: {fileID: 261704929}
   m_Layer: 5
   m_Name: Goal
   m_TagString: Untagged
@@ -1826,26 +1825,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 261704925}
   m_CullTransparentMesh: 0
---- !u!114 &261704929
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 261704925}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecc16498cb074994480ac15b3030193b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  display: {fileID: 707959608}
-  act_goal_rouge: 1
-  reverse_goal_rouge: 1
-  goal_rouge: 0
-  act_goal_vert: 1
-  reverse_goal_vert: 0
-  goal_vert: 30
-  goal_reach: 1
 --- !u!1001 &281167996
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2144,7 +2123,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 250, y: 472}
+  m_AnchoredPosition: {x: 275, y: 537.35}
   m_SizeDelta: {x: 246.4, y: 43.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &301124274
@@ -5823,6 +5802,7 @@ GameObject:
   - component: {fileID: 707959607}
   - component: {fileID: 707959609}
   - component: {fileID: 707959608}
+  - component: {fileID: 707959610}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -5889,6 +5869,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 707959606}
   m_CullTransparentMesh: 0
+--- !u!114 &707959610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 707959606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecc16498cb074994480ac15b3030193b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  act_goal_rouge: 1
+  reverse_goal_rouge: 1
+  goal_rouge: 0
+  act_goal_vert: 1
+  reverse_goal_vert: 0
+  goal_vert: 30
+  goal_reach: 1
 --- !u!1 &717650204
 GameObject:
   m_ObjectHideFlags: 0
@@ -5939,7 +5938,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d2cd7e1eb07b1c42b2155b6442cc8ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  display: {fileID: 717650207}
 --- !u!114 &717650207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5991,7 +5989,6 @@ GameObject:
   - component: {fileID: 722023544}
   - component: {fileID: 722023546}
   - component: {fileID: 722023545}
-  - component: {fileID: 722023547}
   m_Layer: 5
   m_Name: Nid
   m_TagString: Untagged
@@ -6054,20 +6051,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 722023543}
   m_CullTransparentMesh: 0
---- !u!114 &722023547
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 722023543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2339ab367ee6c6945bd8f9b79530995a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 1
-  reproduction: {fileID: 580199708}
 --- !u!1001 &735214872
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13078,7 +13061,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1560152763}
-  - component: {fileID: 1560152764}
   m_Layer: 5
   m_Name: Argent
   m_TagString: Untagged
@@ -13107,23 +13089,6 @@ RectTransform:
   m_AnchoredPosition: {x: 80, y: -19}
   m_SizeDelta: {x: 150, y: 32.960022}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1560152764
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1560152762}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a05a8ea74b8a25f41a733ef9aa69e921, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  value: {fileID: 1712284830}
-  gainTime: 5
-  gain: 1
-  inc_Time: 0
-  money: 0
 --- !u!1 &1566503487
 GameObject:
   m_ObjectHideFlags: 0
@@ -14619,6 +14584,7 @@ GameObject:
   - component: {fileID: 1712284829}
   - component: {fileID: 1712284831}
   - component: {fileID: 1712284830}
+  - component: {fileID: 1712284832}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -14685,6 +14651,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1712284828}
   m_CullTransparentMesh: 0
+--- !u!114 &1712284832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1712284828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a05a8ea74b8a25f41a733ef9aa69e921, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gainTime: 5
+  gain: 1
+  inc_Time: 0
+  money: 0
 --- !u!1 &1724971645
 GameObject:
   m_ObjectHideFlags: 0
@@ -17386,7 +17368,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0.00078878715, y: 0}
-  m_SizeDelta: {x: -1201, y: 200}
+  m_SizeDelta: {x: -1161, y: 200}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1932464605
 MonoBehaviour:
@@ -17925,7 +17907,6 @@ GameObject:
   - component: {fileID: 1999205304}
   - component: {fileID: 1999205303}
   - component: {fileID: 1999205302}
-  - component: {fileID: 1999205301}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -17953,19 +17934,6 @@ RectTransform:
   m_AnchoredPosition: {x: -30, y: -26}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1999205301
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1999205299}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71fdc32ad2475d240a7ec66f66bc8c18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boutique: {fileID: 1514132553}
 --- !u!114 &1999205302
 MonoBehaviour:
   m_ObjectHideFlags: 0
