@@ -7,37 +7,37 @@ public class StatSystem : FSystem
 {
     /// <summary>
     /// The stat feed family
-    /// Représente la fenêtre d'affichage des attributs de l'oiseau sélectionné
+    /// Représente la fenêtre d'affichage des attributs de l'oiseau séléctionné
     /// </summary>
     private Family _StatFeedFamily = FamilyManager.getFamily(new AllOfComponents(typeof(StatFeed)));
 
     /// <summary>
     /// The select family
-    /// Représente l'oiseaux pointer par la souris mais pas sélectionné
+    /// Représente l'oiseaux pointé par la souris mais pas séléctionné
     /// </summary>
     private Family _SelectFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Attribut), typeof(PointerOver)), new NoneOfComponents(typeof(Select)));
 
     /// <summary>
     /// The unselect family
-    /// Représente l'oiseaux qui est sélectionner mais pas pointer par la souris
+    /// Représente l'oiseaux qui est séléctionné mais pas pointé par la souris
     /// </summary>
     private Family _UnselectFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Attribut), typeof(Select)), new NoneOfComponents(typeof(PointerOver)));
 
     /// <summary>
     /// The p
-    /// Représente la fenêtre d'affichage des attributs de l'oiseau sélectionné
+    /// Représente la fenêtre d'affichage des attributs de l'oiseau séléctionné
     /// </summary>
     private GameObject p;
 
     /// <summary>
     /// a
-    /// Représente les attributs de l'oiseau sélectionné
+    /// Représente les attributs de l'oiseau séléctionné
     /// </summary>
     private Attribut a;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="StatSystem"/> class.
-    /// Initialise la fenêtre d'affichage des attributs de l'oiseau sélectionné
+    /// Initialise la fenêtre d'affichage des attributs de l'oiseau séléctionné
     /// </summary>
     public StatSystem()
     {
@@ -46,7 +46,7 @@ public class StatSystem : FSystem
 
     /// <summary>
     /// Function called each time when FYFY enter in the update block where this <see cref="T:FYFY.FSystem" /> is.
-    /// Récupere les attributs de l'oiseaux sélectionner pour les afficher sur la fenêtre d'affichage
+    /// Récupére les attributs de l'oiseaux séléctionné pour les afficher sur la fenêtre d'affichage
     /// </summary>
     /// <param name="familiesUpdateCount">Number of times the families have been updated.</param>
     /// <remarks>

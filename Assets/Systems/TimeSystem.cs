@@ -1,5 +1,6 @@
 ﻿using FYFY;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TimeSystem : FSystem
 {
@@ -57,7 +58,7 @@ public class TimeSystem : FSystem
                 go_prod.GetComponent<Production>().generation = generation;
             }
 
-            c.affichage.text = "generation : " + generation.ToString();
+            go.GetComponent<Text>().text = "generation : " + generation.ToString();
         }
     }
 }

@@ -3,7 +3,6 @@ using UnityEngine.UI;
 
 public class Time_Chrono : MonoBehaviour {
     // Advice: FYFY component aims to contain only public members (according to Entity-Component-System paradigm).
-    public Text affichage;
     public float generation = 15f;
     public float reloadProgress = 0f;
 }
